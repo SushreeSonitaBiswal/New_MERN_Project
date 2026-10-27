@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "inverse-surface": "#213145",
+        "on-surface": "#0b1c30",
+        "surface-dim": "#cbdbf5",
+        "error": "#ba1a1a",
+        "inverse-on-surface": "#eaf1ff",
+        "on-primary-fixed-variant": "#00504a",
+        "secondary-fixed-dim": "#6cd3f7",
+        "on-secondary-fixed-variant": "#004e61",
+        "on-secondary-fixed": "#001f28",
+        "background": "#f8f9ff",
+        "secondary-container": "#76dcff",
+        "outline": "#6e7977",
+        "primary-fixed": "#9cf2e8",
+        "outline-variant": "#bdc9c6",
+        "on-tertiary-fixed-variant": "#003ea8",
+        "primary": "#005c55",
+        "on-surface-variant": "#3e4947",
+        "primary-fixed-dim": "#80d5cb",
+        "tertiary-fixed": "#dbe1ff",
+        "surface-container-high": "#dce9ff",
+        "secondary": "#006780",
+        "secondary-fixed": "#b7eaff",
+        "on-primary-fixed": "#00201d",
+        "surface-container-low": "#eff4ff",
+        "on-primary": "#ffffff",
+        "on-error": "#ffffff",
+        "surface-variant": "#d3e4fe",
+        "on-secondary-container": "#006077",
+        "on-tertiary": "#ffffff",
+        "on-background": "#0b1c30",
+        "error-container": "#ffdad6",
+        "on-secondary": "#ffffff",
+        "surface-container": "#e5eeff",
+        "surface": "#f8f9ff",
+        "surface-container-highest": "#d3e4fe",
+        "on-tertiary-fixed": "#00174b",
+        "surface-tint": "#006a63",
+        "surface-bright": "#f8f9ff",
+        "on-error-container": "#93000a",
+        "tertiary-container": "#1e5fe7",
+        "tertiary-fixed-dim": "#b4c5ff",
+        "tertiary": "#0047bf",
+        "surface-container-lowest": "#ffffff",
+        "on-primary-container": "#a3faef",
+        "inverse-primary": "#80d5cb",
+        "primary-container": "#0f766e",
+        "on-tertiary-container": "#e6e9ff"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-xl": "2rem",
+        "gutter-mobile": "1rem",
+        "space-sm": "0.5rem",
+        "space-lg": "1.5rem",
+        "margin": "2rem",
+        "space-md": "1rem",
+        "space-xs": "0.25rem",
+        "gutter": "1.5rem",
+        "margin-mobile": "1rem"
+      },
+      "fontFamily": {
+        "label-md": ["Inter"],
+        "display-hero": ["Inter"],
+        "headline-md": ["Inter"],
+        "mono-data": ["Inter"],
+        "display-hero-mobile": ["Inter"],
+        "headline-sm": ["Inter"],
+        "body-sm": ["Inter"],
+        "headline-lg": ["Inter"],
+        "headline-lg-mobile": ["Inter"],
+        "label-lg": ["Inter"],
+        "body-md": ["Inter"],
+        "body-lg": ["Inter"],
+        "label-sm": ["Inter"]
+      },
+      "fontSize": {
+        "label-md": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600"}],
+        "display-hero": ["3rem", {"lineHeight": "3.5rem", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+        "headline-md": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+        "mono-data": ["0.8125rem", {"lineHeight": "1.125rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+        "display-hero-mobile": ["2.25rem", {"lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+        "headline-sm": ["1.125rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "body-sm": ["0.75rem", {"lineHeight": "1.125rem", "fontWeight": "400"}],
+        "headline-lg": ["2rem", {"lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "headline-lg-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+        "label-lg": ["0.875rem", {"lineHeight": "1.25rem", "fontWeight": "500"}],
+        "body-md": ["0.875rem", {"lineHeight": "1.375rem", "fontWeight": "400"}],
+        "body-lg": ["1.125rem", {"lineHeight": "1.75rem", "fontWeight": "400"}],
+        "label-sm": ["0.6875rem", {"lineHeight": "0.875rem", "letterSpacing": "0.05em", "fontWeight": "600"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 overflow-y-auto"><div class="p-space-md flex items-center gap-space-sm"><img alt="FixMyArea Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UFgGY8YFJ_uSwMb-1C2HU22kFZeAM_us6EfAz1AkcobGX2c3hO7A9abO8q-2fUVCGSnQMlFgCnByOnW73UCwhkwPQFiPlDoCXK7_jT_FfOSE3R4xg6XvfiQmFTXgGaRxepr6XLVClA0xid1pDbNBiJ3TT9FiRpp2xrTLTGNBKVusmHnfiKoqjl7lupXWVZu7x-KPOqlCVcHESfpAH3sr7-VT_Ih5hjV37GaHkOAJc9bq1aUMuSui-e"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface">FixMyArea</span><span class="font-label-sm text-label-sm text-on-surface-variant">MUNICIPAL PORTAL</span></div></div><div class="px-space-md pb-space-sm"><div class="inline-flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-high rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="font-label-sm text-label-sm text-on-surface">Civic Portal • Live</span></div></div><nav class="flex flex-col gap-1 px-space-sm pt-space-xs" data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-lg"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="report-issue" href="#"><span class="material-symbols-outlined text-[20px]">add_alert</span><span>Report Issue</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="my-complaints" href="#"><span class="material-symbols-outlined text-[20px]">assignment</span><span>My Complaints</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="staff-workbench" href="#"><span class="material-symbols-outlined text-[20px]">engineering</span><span>Staff Workbench</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="admin-management" href="#"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Management</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span>Analytics</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-sm flex flex-col gap-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs"><span class="material-symbols-outlined text-primary text-[20px] mt-0.5">support_agent</span><div><p class="font-label-md text-label-md text-on-surface">Municipal Helpline</p><p class="font-body-sm text-body-sm text-on-surface-variant">Dial 311 (24/7 Support)</p></div></div><div class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors"><div class="flex items-center gap-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface">Marcus Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant">Field Dispatcher</span></div></div><button class="text-on-surface-variant hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[18px]">expand_more</span></button></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">location_city</span><span class="font-label-md text-label-md">FixMyArea</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><div class="inline-flex items-center gap-1 bg-surface-container-low px-space-sm py-1 rounded-full text-on-surface"><span class="material-symbols-outlined text-primary text-[16px]">pin_drop</span><span class="font-label-md text-label-md">Oakwood District 4</span><span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_drop_down</span></div></div><div class="relative w-80 lg:w-96"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span><input class="w-full h-9 pl-9 pr-4 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search complaints by ID, street, or category..." type="text"/></div></div><div class="flex items-center gap-space-md"><button class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 bg-error text-on-error rounded-full font-label-sm text-[10px] flex items-center justify-center font-bold">3</span></button><a class="inline-flex items-center gap-space-xs px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-95 transition-all" data-path="report-issue" href="#"><span class="material-symbols-outlined text-[18px]">add</span><span>Report Problem</span></a><div class="flex items-center gap-space-xs pl-space-xs cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><span class="material-symbols-outlined text-[18px] text-on-surface-variant">keyboard_arrow_down</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg"><div class="flex flex-col w-full gap-space-xl">
+<!-- Top Command & Filter Deck -->
+<section class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="inline-flex items-center gap-space-xs text-primary font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Open311 Municipal Telemetry Feed</span>
+<span class="text-outline-variant">•</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">NODE: HQ-METRO-04</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+        Municipal Reports &amp; Civic Analytics
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Cross-ward resolution performance, SLA compliance indices, citizen satisfaction, and departmental turnaround benchmarks.
+      </p>
+</div>
+<!-- Filter Bar Controls -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Date Range Picker Pill -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_today</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Timeframe</span>
+<span class="font-label-md text-label-md text-on-surface">Oct 1 – Oct 31, 2024</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[16px] ml-1">expand_more</span>
+</div>
+<!-- Ward Selector -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">domain</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Jurisdiction</span>
+<span class="font-label-md text-label-md text-on-surface">All Wards (1–8)</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[16px] ml-1">expand_more</span>
+</div>
+<!-- Department Filter -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[18px]">construction</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Department</span>
+<span class="font-label-md text-label-md text-on-surface">Public Works</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[16px] ml-1">expand_more</span>
+</div>
+<!-- Action Exports -->
+<div class="flex items-center gap-space-xs">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 bg-surface-container-lowest text-on-surface rounded-lg font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all" type="button">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">picture_as_pdf</span>
+<span>PDF Audit</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export GeoJSON/CSV</span>
+</button>
+</div>
+</div>
+</section>
+<!-- KPI Executive Metrics Grid (4 Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1: Total Issues -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Issues Logged</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">3,842</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">inbox</span>
+</div>
+</div>
+<div class="mt-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-body-sm">
+<span class="inline-flex items-center text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+            +12.4% vs prev period
+          </span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">94.1% capture</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 94.1%"></div>
+</div>
+</div>
+</div>
+<!-- Card 2: Mean Time to Resolution -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Mean Time to Resolution</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">26.4 hrs</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">speed</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center justify-between">
+<span class="inline-flex items-center text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+          -4.2 hrs turnaround
+        </span>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          Within Target
+        </span>
+</div>
+</div>
+<!-- Card 3: SLA Compliance -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">On-Time SLA Compliance</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">96.2%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">/ 95.0% Goal</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center justify-between text-body-sm">
+<span class="font-mono-data text-mono-data text-on-surface-variant">142 urgent resolved</span>
+<div class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>+1.2% delta</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Citizen Satisfaction -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Citizen CSAT Rating</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">4.82</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ 5.0</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">sentiment_very_satisfied</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center justify-between">
+<span class="font-mono-data text-mono-data text-on-surface-variant">1,894 verified surveys</span>
+<span class="inline-flex items-center text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">add</span>0.30 MoM
+        </span>
+</div>
+</div>
+</section>
+<!-- Main Visual & Tabular Data Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (60% ~ 7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Chart Panel: Volume vs Velocity -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Complaint Volume &amp; Resolution Velocity</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Daily reported incidents mapped against completed public works field orders.</p>
+</div>
+<!-- Category Toggles -->
+<div class="inline-flex p-1 bg-surface-container-low rounded-lg gap-1">
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-xs" type="button">All</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">Potholes</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">Sanitation</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">Lighting</button>
+</div>
+</div>
+<!-- Metric Legend -->
+<div class="flex items-center gap-space-lg text-body-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-sm bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface">Resolved Tickets (3,694)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-sm bg-surface-container-high"></span>
+<span class="font-label-md text-label-md text-on-surface">Inflow Submissions (3,842)</span>
+</div>
+<div class="flex items-center gap-space-xs ml-auto">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-mono-data text-mono-data text-error">Oct 17 Rain Surge (+38%)</span>
+</div>
+</div>
+<!-- SVG Inline Chart Area -->
+<div class="w-full h-64 relative mt-space-sm">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 700 220">
+<!-- Subtle Grid Lines -->
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="700" y1="40" y2="40"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="700" y1="90" y2="90"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="700" y1="140" y2="140"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="0" x2="700" y1="190" y2="190"></line>
+<!-- Background Gradient Area for Velocity Line -->
+<defs>
+<lineargradient id="resolvedGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#005c55" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#005c55" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Bar Columns: Inflow Intake -->
+<!-- Week 1 -->
+<rect fill="#DCE9FF" height="110" rx="3" width="16" x="35" y="80"></rect>
+<rect fill="#DCE9FF" height="135" rx="3" width="16" x="75" y="55"></rect>
+<rect fill="#DCE9FF" height="120" rx="3" width="16" x="115" y="70"></rect>
+<rect fill="#DCE9FF" height="145" rx="3" width="16" x="155" y="45"></rect>
+<!-- Week 2 Surge -->
+<rect fill="#DCE9FF" height="160" rx="3" width="16" x="215" y="30"></rect>
+<rect fill="#BA1A1A" fill-opacity="0.3" height="175" rx="3" width="16" x="255" y="15"></rect>
+<rect fill="#DCE9FF" height="150" rx="3" width="16" x="295" y="40"></rect>
+<rect fill="#DCE9FF" height="130" rx="3" width="16" x="335" y="60"></rect>
+<!-- Week 3 -->
+<rect fill="#DCE9FF" height="115" rx="3" width="16" x="395" y="75"></rect>
+<rect fill="#DCE9FF" height="100" rx="3" width="16" x="435" y="90"></rect>
+<rect fill="#DCE9FF" height="125" rx="3" width="16" x="475" y="65"></rect>
+<rect fill="#DCE9FF" height="140" rx="3" width="16" x="515" y="50"></rect>
+<!-- Week 4 -->
+<rect fill="#DCE9FF" height="105" rx="3" width="16" x="575" y="85"></rect>
+<rect fill="#DCE9FF" height="95" rx="3" width="16" x="615" y="95"></rect>
+<rect fill="#DCE9FF" height="80" rx="3" width="16" x="655" y="110"></rect>
+<!-- Resolved Trend Curve Area -->
+<path d="M 43,105 Q 125,75 223,45 T 263,30 T 343,70 T 443,100 T 523,60 T 663,120 L 663,190 L 43,190 Z" fill="url(#resolvedGradient)"></path>
+<!-- Resolved Trend Curve Stroke -->
+<path d="M 43,105 Q 125,75 223,45 T 263,30 T 343,70 T 443,100 T 523,60 T 663,120" fill="none" stroke="#005c55" stroke-linecap="round" stroke-width="3"></path>
+<!-- Key Point Highlights -->
+<circle cx="263" cy="30" fill="#005c55" r="4.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="523" cy="60" fill="#005c55" r="4.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- Annotation Flag -->
+<g transform="translate(240, -4)">
+<rect fill="#213145" height="18" rx="4" width="70" x="-10" y="0"></rect>
+<text fill="#ffffff" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="25" y="12">Peak: 312 Incidents</text>
+</g>
+</svg>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-mono-data text-mono-data pt-space-xs border-t-0">
+<span>Oct 01</span>
+<span>Oct 08</span>
+<span>Oct 15</span>
+<span>Oct 22</span>
+<span>Oct 29</span>
+<span>Nov 01</span>
+</div>
+</section>
+<!-- Ward-by-Ward SLA & Performance Matrix -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-space-lg flex items-center justify-between pb-space-md">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Ward-by-Ward SLA &amp; Performance Matrix</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Comparative analysis across administrative council districts.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left text-on-surface">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-space-md">Ward / Jurisdiction</th>
+<th class="py-3 px-space-sm">Councilor / Lead</th>
+<th class="py-3 px-space-sm text-right">Total Logged</th>
+<th class="py-3 px-space-sm text-right">Active Crews</th>
+<th class="py-3 px-space-sm text-right">Avg MTTR</th>
+<th class="py-3 px-space-sm text-right">SLA %</th>
+<th class="py-3 px-space-sm text-center">CSAT</th>
+<th class="py-3 px-space-md text-right">Health Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-md font-body-md">
+<!-- Ward 1 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                  Ward 1 - Downtown Core
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Elena Rostova</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">682</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">14</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">18.2 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-primary">98.4%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.9</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed-variant">Optimal</span>
+</td>
+</tr>
+<!-- Ward 2 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                  Ward 2 - Riverside North
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">David Chen</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">490</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">8</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">22.0 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-primary">97.1%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.8</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed-variant">Optimal</span>
+</td>
+</tr>
+<!-- Ward 3 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                  Ward 3 - East Industrial
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Kareem Al-Sayed</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">340</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">6</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">29.4 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-secondary">94.8%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.6</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed-variant">Normal</span>
+</td>
+</tr>
+<!-- Ward 4 (Current View Highlight) -->
+<tr class="bg-surface-container-high/60 hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+                  Ward 4 - Oakwood Hills
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Marcus Vance (Acting)</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-bold">784</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">11</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data text-error font-bold">38.6 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-error">91.2%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.5</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-error-container text-on-error-container">Backlog</span>
+</td>
+</tr>
+<!-- Ward 5 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                  Ward 5 - West Suburbs
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Sarah Jenkins</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">412</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">7</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">24.1 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-primary">97.8%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.9</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed-variant">Optimal</span>
+</td>
+</tr>
+<!-- Ward 6 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                  Ward 6 - Highland Park
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Thomas Weber</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">320</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">5</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">25.5 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-secondary">96.0%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.8</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed-variant">Normal</span>
+</td>
+</tr>
+<!-- Ward 7 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                  Ward 7 - South Meadows
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Patricia O'Neil</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">484</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">9</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">27.0 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-secondary">95.4%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.7</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed-variant">Normal</span>
+</td>
+</tr>
+<!-- Ward 8 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-space-md font-semibold text-on-surface flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                  Ward 8 - University Quarter
+                </td>
+<td class="py-3 px-space-sm text-on-surface-variant font-body-sm">Leon Gutierrez</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">330</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">5</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data">21.8 hrs</td>
+<td class="py-3 px-space-sm text-right font-mono-data text-mono-data font-semibold text-primary">98.1%</td>
+<td class="py-3 px-space-sm text-center font-mono-data text-mono-data">4.9</td>
+<td class="py-3 px-space-md text-right">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed-variant">Optimal</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low/40 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Showing 8 of 8 administrative wards • Live sync 2 mins ago</span>
+<a class="text-primary hover:underline font-medium inline-flex items-center gap-1" href="#">
+<span>Download CSV breakdown</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</section>
+<!-- Field Photo Verification Mosaic -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Field Closure Verifications</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automated before-and-after photographic telemetry audited by AI inspect-nodes.</p>
+</div>
+<span class="font-label-sm text-label-sm px-space-sm py-1 rounded bg-surface-container text-on-surface font-semibold">
+            GPS Verified
+          </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="group relative rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Close up high resolution photo of completed asphalt road resurfacing on an urban street with crisp yellow street markings under clear daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJNlFrvF4Rbz6fZBAahxtfbPptAk0RSATCBeXzvEHXp9SZVwXNOSEnP0dNS8t78PrnWXP5FUgnB774QJ1k5C6zP888ECOpfks4l5ZJiYD1gOVEBHyyhrkP9M2Ao5JTh75LeE39B0pk5fm7SZU3JFMB_ejudCH3ZHQaRSo-VuMbd2omQSTOv82NM1_VBZQWIe1BCBp85aa5UQ8NNr0A5Obq6txciZ41hMaT_wAsPiCJORQNAqwzCGE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-transparent to-transparent flex flex-col justify-end p-space-md text-inverse-on-surface">
+<span class="font-label-sm text-label-sm text-primary-fixed">RESOLVED • INC-2024-8891</span>
+<p class="font-label-md text-label-md truncate">Pothole Repair – 4th Ave &amp; Pine Boulevard</p>
+<span class="font-mono-data text-mono-data text-outline-variant text-[11px]">Time to repair: 4.8 hrs • Ward 4</span>
+</div>
+</div>
+<div class="group relative rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Municipal maintenance workers in high visibility neon yellow vests repairing an underground stormwater storm drain grid with hydraulic machinery on an autumn morning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq_pye0eRVjyRjmWIC6zZjgNGFe8Oc517QqmiOHVmx6cZroLHJ6H-RE9AVlNTCbWmo3yU8LYWRANUMw1CFF1OkttUUQMvPtbqX0MaRTqAfz_jfVH0V4UViCo5EJiX_iYjL2TwEFyBM8TsFh5qUjvk-UFK0eQCK8WuSzh74K_mwOXpHXO9JTKYvOmk1lnBzSFZ83iMdSfrpw8VbOpRDHlRy9cCVXx3Ug6LapItThV_aazUWRTRBbuQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-transparent to-transparent flex flex-col justify-end p-space-md text-inverse-on-surface">
+<span class="font-label-sm text-label-sm text-secondary-fixed">IN PROGRESS • INC-2024-9042</span>
+<p class="font-label-md text-label-md truncate">Catch Basin Overflow Clearing – Elm Creek</p>
+<span class="font-mono-data text-mono-data text-outline-variant text-[11px]">Crew 4-B Active • Ward 4 Bottleneck</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (40% ~ 5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Departmental Workload & Category Breakdown -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Departmental Workload</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ticket distribution &amp; active field fleet allocations.</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">donut_large</span>
+</div>
+<!-- Custom Donut Chart & Percentages -->
+<div class="flex flex-col sm:flex-row items-center gap-space-lg py-space-sm">
+<!-- Donut SVG -->
+<div class="relative w-36 h-36 flex-shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Roads 34% (stroke-dasharray: 34 * 2.827 = 96.1, total circumference = 282.7) -->
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="#005c55" stroke-dasharray="96.1 282.7" stroke-dashoffset="0" stroke-width="10"></circle>
+<!-- Sanitation 26% (73.5) -->
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="#006780" stroke-dasharray="73.5 282.7" stroke-dashoffset="-96.1" stroke-width="10"></circle>
+<!-- Electrical 18% (50.8) -->
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="#0047bf" stroke-dasharray="50.8 282.7" stroke-dashoffset="-169.6" stroke-width="10"></circle>
+<!-- Water 14% (39.5) -->
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="#0f766e" stroke-dasharray="39.5 282.7" stroke-dashoffset="-220.4" stroke-width="10"></circle>
+<!-- Parks 8% (22.6) -->
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="#bdc9c6" stroke-dasharray="22.6 282.7" stroke-dashoffset="-259.9" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">3,842</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Reports</span>
+</div>
+</div>
+<!-- Category Breakdown List -->
+<div class="flex flex-col gap-space-xs w-full">
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface">Roads &amp; Surface</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-data text-mono-data font-semibold text-on-surface">34%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">24 crews</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface">Sanitation &amp; Waste</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-data text-mono-data font-semibold text-on-surface">26%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">18 crews</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span class="font-label-md text-label-md text-on-surface">Electrical &amp; Lighting</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-data text-mono-data font-semibold text-on-surface">18%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">12 crews</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface">Water &amp; Drainage</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-data text-mono-data font-semibold text-on-surface">14%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">9 crews</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-md text-label-md text-on-surface">Parks &amp; Public Space</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-data text-mono-data font-semibold text-on-surface">8%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 crews</span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-xs">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Deployed Personnel:</span>
+<span class="font-mono-data text-mono-data font-bold text-on-surface">68 Mobile Response Units</span>
+</div>
+</div>
+</section>
+<!-- SLA Breach Risk & Bottleneck Alerts -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">SLA Breach Risk &amp; Bottlenecks</h2>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-semibold">
+            3 Active Anomalies
+          </span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Bottleneck 1 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1 transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[18px]">water_damage</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Ward 4 Stormwater Backlog</span>
+</div>
+<span class="font-mono-data text-mono-data text-error font-bold">+18.4 hrs delay</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Heavy rain runoff exceeded culvert capacity at 4 locations. Drain vac equipment bottlenecked; 2 supplemental units requested from Ward 2.
+            </p>
+<div class="mt-1 flex items-center justify-between text-[11px] font-mono-data text-on-surface-variant">
+<span>Impacted: 42 open tickets</span>
+<a class="text-primary hover:underline font-semibold" href="#">Dispatch Reinforcement →</a>
+</div>
+</div>
+<!-- Bottleneck 2 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1 transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">build</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bucket Truck Mechanical Outage</span>
+</div>
+<span class="font-mono-data text-mono-data text-secondary font-bold">Div #2 Offline</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              High-mast streetlight fixes suspended along Oakridge Expressway. Maintenance estimated completion: Tomorrow at 08:00 AM.
+            </p>
+<div class="mt-1 flex items-center justify-between text-[11px] font-mono-data text-on-surface-variant">
+<span>Impacted: 19 streetlight tickets</span>
+<a class="text-primary hover:underline font-semibold" href="#">View Fleet Log →</a>
+</div>
+</div>
+<!-- Bottleneck 3 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1 transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[18px]">local_fire_department</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Asphalt Hotbox Maintenance</span>
+</div>
+<span class="font-mono-data text-mono-data text-outline font-bold">Scheduled Down</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Routine bi-weekly heating recalibration. Surface patch response capacity operating at 65% capacity until 17:00.
+            </p>
+<div class="mt-1 flex items-center justify-between text-[11px] font-mono-data text-on-surface-variant">
+<span>Impacted: Non-critical potholes</span>
+<span class="text-on-surface-variant font-medium">Reopening 17:00 UTC</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Public Accountability Export Ledger -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">shield</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Open311 Municipal Trust Seal</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Cryptographically hashed civic report logs published hourly to Open Data Portals to ensure municipal transparency and state auditor compliance.
+        </p>
+<!-- Cryptographic Stamp Box -->
+<div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Current Block Proof</span>
+<span class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Verified Sync
+            </span>
+</div>
+<span class="font-mono-data text-[11px] text-on-surface break-all bg-surface-container-lowest p-2 rounded">
+            SHA256: 8f4b7a1e09bc45d2994f31c26b801a287e0fa83c3e210dc01b7a66f
+          </span>
+<div class="flex justify-between items-center text-[11px] font-mono-data text-on-surface-variant pt-1">
+<span>Timestamp: 2024-10-31 16:42:10 UTC</span>
+<span>Ledger Block #104,912</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 bg-on-surface text-surface rounded-lg font-label-md text-label-md hover:bg-inverse-surface transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+<span>Generate City Council Briefing Package</span>
+</button>
+</section>
+<!-- Automated Scheduled Audit Digest Widget -->
+<section class="bg-gradient-to-br from-primary-container to-primary rounded-xl p-space-lg text-on-primary shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container">Weekly Automation</span>
+<span class="material-symbols-outlined text-on-primary-container text-[20px]">mark_email_read</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary">Executive Digest Ready</h3>
+<p class="font-body-sm text-body-sm text-on-primary/90">
+          Weekly ward dispatch synopsis scheduled for City Manager transmission at Friday 18:00 EST. 
+        </p>
+<div class="pt-space-xs flex items-center justify-between text-body-sm">
+<span class="font-mono-data text-mono-data text-on-primary-container">8 Recipients queued</span>
+<button class="text-on-primary font-semibold hover:underline text-label-sm inline-flex items-center gap-1" type="button">
+<span>Preview Email</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for category filter tabs
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (this.textContent.trim() === 'Potholes' || this.textContent.trim() === 'Sanitation' || this.textContent.trim() === 'Lighting' || this.textContent.trim() === 'All') {
+        const parent = this.parentElement;
+        parent.querySelectorAll('button').forEach(b => {
+          b.className = 'px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors';
+        });
+        this.className = 'px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-xs';
+      }
+    });
+  });
+</script></main></div></body></html>
