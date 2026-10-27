@@ -115,29 +115,33 @@ function StitchNavigationOverlay() {
   );
 }
 
+import { AuthProvider } from './context/AuthContext';
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <StitchNavigationOverlay />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/explore" element={<ExploreComplaints />} />
-        <Route path="/report" element={<ReportComplaint />} />
-        <Route path="/track" element={<ComplaintTracking />} />
-        <Route path="/citizen/dashboard" element={<CitizenDashboard />} />
-        <Route path="/citizen/my-complaints" element={<MyComplaints />} />
-        <Route path="/notifications" element={<NotificationCenter />} />
-        <Route path="/staff/workbench" element={<StaffWorkbench />} />
-        <Route path="/staff/history" element={<CompletedWorkHistory />} />
-        <Route path="/admin/complaints" element={<AdminComplaints />} />
-        <Route path="/admin/staff" element={<StaffWorkload />} />
-        <Route path="/admin/categories" element={<CategoryManagement />} />
-        <Route path="/admin/analytics" element={<ReportsAnalytics />} />
-        <Route path="/admin/settings" element={<SystemSettings />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <StitchNavigationOverlay />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/explore" element={<ExploreComplaints />} />
+          <Route path="/report" element={<ReportComplaint />} />
+          <Route path="/track" element={<ComplaintTracking />} />
+          <Route path="/citizen/dashboard" element={<CitizenDashboard />} />
+          <Route path="/citizen/my-complaints" element={<MyComplaints />} />
+          <Route path="/notifications" element={<NotificationCenter />} />
+          <Route path="/staff/workbench" element={<StaffWorkbench />} />
+          <Route path="/staff/history" element={<CompletedWorkHistory />} />
+          <Route path="/admin/complaints" element={<AdminComplaints />} />
+          <Route path="/admin/staff" element={<StaffWorkload />} />
+          <Route path="/admin/categories" element={<CategoryManagement />} />
+          <Route path="/admin/analytics" element={<ReportsAnalytics />} />
+          <Route path="/admin/settings" element={<SystemSettings />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

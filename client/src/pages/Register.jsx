@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
-  const [role, setRole] = useState('resident');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [ward, setWard] = useState('Ward 04 - Oakwood');
-  const [loading, setLoading] = useState(false);
+  const [ward, setWard] = useState('Ward 04 - Oakwood District');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const { register, loading } = useAuth();
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setErrorMessage('');
+
+    const res = await register({ name, email, phone, password, ward, role: 'citizen' });
+    if (res.success) {
       navigate('/citizen/dashboard');
-    }, 600);
+    } else {
+      setErrorMessage(res.message);
+    }
   };
 
   return (
@@ -43,6 +48,13 @@ export default function Register() {
             Join thousands of active residents tracking and solving neighborhood issues.
           </p>
         </div>
+
+        {errorMessage && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs flex items-center gap-2">
+            <span className="material-symbols-outlined text-[18px]">error</span>
+            <span>{errorMessage}</span>
+          </div>
+        )}
 
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
@@ -125,7 +137,7 @@ export default function Register() {
             disabled={loading}
             className="w-full h-11 mt-4 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-primary/20 cursor-pointer disabled:opacity-60"
           >
-            <span>{loading ? 'Creating account...' : 'Complete Registration'}</span>
+            <span>{loading ? 'Registering with MongoDB...' : 'Complete Registration'}</span>
             <span className="material-symbols-outlined text-[18px]">check_circle</span>
           </button>
         </form>
