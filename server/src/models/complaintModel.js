@@ -115,12 +115,11 @@ const complaintSchema = new mongoose.Schema(
 );
 
 // Auto-generate human-friendly ticket ID (e.g. FMA-4829)
-complaintSchema.pre('validate', function (next) {
+complaintSchema.pre('validate', function () {
   if (!this.ticketId) {
     const randomDigits = Math.floor(1000 + Math.random() * 9000);
     this.ticketId = `FMA-${randomDigits}`;
   }
-  next();
 });
 
 const Complaint = mongoose.model('Complaint', complaintSchema);
