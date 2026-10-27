@@ -18,7 +18,7 @@ export default function StaffWorkload() {
 </div>
 <div className="flex items-center gap-space-sm">
 <span className="font-mono-data text-mono-data text-on-surface-variant">Last Telemetry: 18s ago</span>
-<button className="flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container transition-colors" onclick="triggerToast('Telemetry synchronized with Oakwood municipal GPS transponders')">
+<button className="flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container transition-colors" onClick={() => {}}>
 <span className="material-symbols-outlined text-[16px]">sync</span>
 <span>Refresh Feed</span>
 </button>
@@ -39,11 +39,11 @@ export default function StaffWorkload() {
 </div>
 
 <div className="flex flex-wrap items-center gap-space-sm">
-<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all rounded-lg shadow-sm font-label-lg text-label-lg" onclick="autoBalanceCrew()">
+<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all rounded-lg shadow-sm font-label-lg text-label-lg" onClick={() => {}}>
 <span className="material-symbols-outlined text-[18px] text-primary">balance</span>
 <span>Auto-Balance Workload</span>
 </button>
-<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 bg-primary text-on-primary hover:bg-primary-container transition-all rounded-lg shadow-sm font-label-lg text-label-lg" onclick="toggleSlidePanel(true)">
+<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 bg-primary text-on-primary hover:bg-primary-container transition-all rounded-lg shadow-sm font-label-lg text-label-lg" onClick={() => {}}>
 <span className="material-symbols-outlined text-[18px]">person_add</span>
 <span>Add New Staff Member</span>
 </button>
@@ -177,7 +177,7 @@ export default function StaffWorkload() {
 </div>
 
 <div className="flex flex-wrap items-center gap-space-sm">
-<button className="px-space-md py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1" onclick="toggleBulkReassignModal()">
+<button className="px-space-md py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1" onClick={() => {}}>
 <span className="material-symbols-outlined text-[16px]">swap_horiz</span>
 <span>Bulk Reassign</span>
 </button>
@@ -191,7 +191,7 @@ export default function StaffWorkload() {
 
 <div className="relative">
 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
-<input className="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary" id="staffSearchInput" onkeyup="filterStaffList()" placeholder="Search staff by name, unit #, or tag..." type="text"/>
+<input className="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary" id="staffSearchInput" onKeyUp={() => {}} placeholder="Search staff by name, unit #, or tag..." type="text"/>
 </div>
 
 <div className="relative">
@@ -277,7 +277,7 @@ export default function StaffWorkload() {
 </thead>
 <tbody className="divide-y divide-surface-container-low">
 
-<tr className="hover:bg-surface-container transition-colors cursor-pointer bg-surface-container-low/40" onclick="selectCrew('Dave Miller', 'PW-8821', 'Senior Lineman / Heavy Equip', 'Oakwood North - Ward 4', 'In Field - Active', 4, 4, 98.8, 'Truck EMU-02 (Hotbox &amp; Compactor)')">
+<tr className="hover:bg-surface-container transition-colors cursor-pointer bg-surface-container-low/40" onClick={() => {}}>
 <td className="py-4 px-space-md">
 <div className="flex items-center gap-space-sm">
 <div className="relative">
@@ -320,9 +320,9 @@ export default function StaffWorkload() {
 </td>
 <td className="py-4 px-space-md">
 <div className="flex flex-wrap gap-1 max-w-[200px]">
-<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onclick="event.stopPropagation(); alert('View Ticket #FMA-9102')">#9102 Sinkhole</span>
-<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onclick="event.stopPropagation(); alert('View Ticket #FMA-8492')">#8492 Asphalt</span>
-<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onclick="event.stopPropagation(); alert('View Ticket #FMA-8841')">+2 more</span>
+<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onClick={() => {}}>#9102 Sinkhole</span>
+<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onClick={() => {}}>#8492 Asphalt</span>
+<span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-data text-[11px] hover:bg-primary hover:text-on-primary transition-colors cursor-pointer" onClick={() => {}}>+2 more</span>
 </div>
 </td>
 <td className="py-4 px-space-md">
@@ -336,17 +336,17 @@ export default function StaffWorkload() {
 </td>
 <td className="py-4 px-space-md text-right">
 <div className="inline-flex items-center gap-1">
-<button className="p-1.5 rounded-lg text-primary hover:bg-surface-container-high transition-colors" onclick="event.stopPropagation(); triggerReassign('Dave Miller', '#PW-8821')" title="Reassign Incident Tickets">
+<button className="p-1.5 rounded-lg text-primary hover:bg-surface-container-high transition-colors" onClick={() => {}} title="Reassign Incident Tickets">
 <span className="material-symbols-outlined text-[18px]">swap_horiz</span>
 </button>
-<button className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="event.stopPropagation(); toggleSlidePanel(true)" title="View Detail Dossier">
+<button className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" onClick={() => {}} title="View Detail Dossier">
 <span className="material-symbols-outlined text-[18px]">open_in_new</span>
 </button>
 </div>
 </td>
 </tr>
 
-<tr className="hover:bg-surface-container transition-colors cursor-pointer" onclick="selectCrew('Amina Patel', 'SN-4412', 'Hazmat &amp; Bio-Sanitation Lead', 'Ward 4 - Oakwood North', 'En Route to Site', 3, 5, 96.5, 'Sprinter Sanitizer 04')">
+<tr className="hover:bg-surface-container transition-colors cursor-pointer" onClick={() => {}}>
 <td className="py-4 px-space-md">
 <div className="flex items-center gap-space-sm">
 <div className="relative">
@@ -404,7 +404,7 @@ export default function StaffWorkload() {
 </td>
 <td className="py-4 px-space-md text-right">
 <div className="inline-flex items-center gap-1">
-<button className="p-1.5 rounded-lg text-primary hover:bg-surface-container-high transition-colors" onclick="event.stopPropagation(); triggerReassign('Amina Patel', '#SN-4412')" title="Reassign Incident Tickets">
+<button className="p-1.5 rounded-lg text-primary hover:bg-surface-container-high transition-colors" onClick={() => {}} title="Reassign Incident Tickets">
 <span className="material-symbols-outlined text-[18px]">swap_horiz</span>
 </button>
 <button className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
@@ -414,7 +414,7 @@ export default function StaffWorkload() {
 </td>
 </tr>
 
-<tr className="hover:bg-surface-container transition-colors cursor-pointer" onclick="selectCrew('Carlos Mendez', 'EL-0914', 'Certified High-Voltage Lineman', 'Ward 4 - Central Grid', 'Standby at Substation', 1, 4, 94.2, 'Bucket Rig BR-09')">
+<tr className="hover:bg-surface-container transition-colors cursor-pointer" onClick={() => {}}>
 <td className="py-4 px-space-md">
 <div className="flex items-center gap-space-sm">
 <div className="relative">
@@ -468,7 +468,7 @@ export default function StaffWorkload() {
 </td>
 <td className="py-4 px-space-md text-right">
 <div className="inline-flex items-center gap-1">
-<button className="px-2 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); quickDispatchToCrew('Carlos Mendez', '#EL-0914')">
+<button className="px-2 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors" onClick={() => {}}>
                       Dispatch
                     </button>
 <button className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
@@ -478,7 +478,7 @@ export default function StaffWorkload() {
 </td>
 </tr>
 
-<tr className="hover:bg-surface-container transition-colors cursor-pointer" onclick="selectCrew('Elena Rostova', 'WW-3390', 'Hydraulics &amp; Main Interceptor Tech', 'Ward 3 - East Aqueduct', 'In Field - Active', 3, 4, 99.1, 'Hydro-Excavator 02')">
+<tr className="hover:bg-surface-container transition-colors cursor-pointer" onClick={() => {}}>
 <td className="py-4 px-space-md">
 <div className="flex items-center gap-space-sm">
 <div className="relative">
@@ -631,7 +631,7 @@ export default function StaffWorkload() {
 <p className="font-body-sm text-body-sm text-on-surface-variant">Active tickets will seamlessly transfer to Ward 4 Swing Crew B</p>
 </div>
 </div>
-<button className="px-3 py-1.5 bg-surface-container text-on-surface rounded font-label-sm text-label-sm hover:bg-surface-container-high font-semibold" onclick="triggerToast('Shift handover pre-briefing generated for 14:30')">Pre-Brief</button>
+<button className="px-3 py-1.5 bg-surface-container text-on-surface rounded font-label-sm text-label-sm hover:bg-surface-container-high font-semibold" onClick={() => {}}>Pre-Brief</button>
 </div>
 </div>
 </div>
@@ -717,11 +717,11 @@ export default function StaffWorkload() {
 </div>
 </div>
 <div className="mt-space-md flex items-center gap-space-sm">
-<button className="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-all shadow-sm flex items-center justify-center gap-1" onclick="dispatchClosest()">
+<button className="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-all shadow-sm flex items-center justify-center gap-1" onClick={() => {}}>
 <span className="material-symbols-outlined text-[16px]">navigation</span>
 <span>Assign Next Closest Ticket</span>
 </button>
-<button className="p-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors shadow-sm" onclick="toggleSlidePanel(true)" title="Open Full Telemetry Dossier">
+<button className="p-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors shadow-sm" onClick={() => {}} title="Open Full Telemetry Dossier">
 <span className="material-symbols-outlined text-[18px]">open_in_full</span>
 </button>
 </div>
@@ -767,7 +767,7 @@ export default function StaffWorkload() {
 <span className="font-medium text-on-surface">Engine Unit 14</span>
 <span className="text-on-surface-variant font-mono-data text-[11px]">(Water Jetter)</span>
 </div>
-<button className="px-2 py-1 bg-surface-container-lowest text-primary rounded font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="triggerToast('Standby unit 14 alerted for assignment')">Deploy</button>
+<button className="px-2 py-1 bg-surface-container-lowest text-primary rounded font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onClick={() => {}}>Deploy</button>
 </div>
 <div className="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
 <div className="flex items-center gap-2">
@@ -775,7 +775,7 @@ export default function StaffWorkload() {
 <span className="font-medium text-on-surface">Lift Rig 07</span>
 <span className="text-on-surface-variant font-mono-data text-[11px]">(Downed Power)</span>
 </div>
-<button className="px-2 py-1 bg-surface-container-lowest text-primary rounded font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="triggerToast('Standby Lift Rig 07 alerted for assignment')">Deploy</button>
+<button className="px-2 py-1 bg-surface-container-lowest text-primary rounded font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onClick={() => {}}>Deploy</button>
 </div>
 </div>
 </div>
@@ -790,7 +790,7 @@ export default function StaffWorkload() {
 <span className="font-label-sm text-label-sm text-primary font-semibold uppercase tracking-wider">CREW DOSSIER &amp; TICKET LEVELLING</span>
 <h2 className="font-headline-md text-headline-md text-on-surface">Workload Allocation Manager</h2>
 </div>
-<button className="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" onclick="toggleSlidePanel(false)">
+<button className="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" onClick={() => {}}>
 <span className="material-symbols-outlined text-[24px]">close</span>
 </button>
 </div>
@@ -864,10 +864,10 @@ export default function StaffWorkload() {
 </div>
 
 <div className="p-space-lg bg-surface-container-low flex items-center justify-end gap-space-sm">
-<button className="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg transition-colors" onclick="toggleSlidePanel(false)">
+<button className="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg transition-colors" onClick={() => {}}>
           Cancel
         </button>
-<button className="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg transition-colors shadow-sm flex items-center gap-1.5" onclick="commitReassignment()">
+<button className="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg transition-colors shadow-sm flex items-center gap-1.5" onClick={() => {}}>
 <span className="material-symbols-outlined text-[18px]">check</span>
 <span>Confirm &amp; Reassign</span>
 </button>

@@ -19,7 +19,7 @@ export default function CompletedWorkHistory() {
 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
 <span>Ledger Node: <strong>#ORD-449-ALPHA</strong></span>
 </div>
-<button className="inline-flex items-center gap-1 px-3 py-1 bg-surface-container-high hover:bg-surface-variant text-on-surface rounded-lg text-label-sm font-label-sm transition-all" onclick="window.print()">
+<button className="inline-flex items-center gap-1 px-3 py-1 bg-surface-container-high hover:bg-surface-variant text-on-surface rounded-lg text-label-sm font-label-sm transition-all" onClick={() => {}}>
 <span className="material-symbols-outlined text-[16px]">print</span>
 <span>Print Manifest</span>
 </button>

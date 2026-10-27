@@ -417,7 +417,7 @@ export default function HowItWorks() {
 
 <div className="space-y-space-sm" id="faq-accordion">
 
-<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onclick="toggleFaq(this)">
+<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onClick={() => {}}>
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
 <span className="material-symbols-outlined text-primary text-[20px]">help_outline</span>
@@ -430,7 +430,7 @@ export default function HowItWorks() {
         </div>
 </div>
 
-<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onclick="toggleFaq(this)">
+<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onClick={() => {}}>
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
 <span className="material-symbols-outlined text-primary text-[20px]">lock_person</span>
@@ -443,7 +443,7 @@ export default function HowItWorks() {
         </div>
 </div>
 
-<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onclick="toggleFaq(this)">
+<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onClick={() => {}}>
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
 <span className="material-symbols-outlined text-primary text-[20px]">timer_off</span>
@@ -456,7 +456,7 @@ export default function HowItWorks() {
         </div>
 </div>
 
-<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onclick="toggleFaq(this)">
+<div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm cursor-pointer transition-all faq-card" onClick={() => {}}>
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
 <span className="material-symbols-outlined text-primary text-[20px]">rate_review</span>

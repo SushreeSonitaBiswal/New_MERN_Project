@@ -194,7 +194,7 @@ export default function SystemSettings() {
 </div>
 <span className="font-mono-data text-mono-data text-secondary font-semibold" id="sla-slider-value">75% elapsed SLA</span>
 </div>
-<input className="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="sla-slider" max="90" min="50" oninput="document.getElementById('sla-slider-value').innerText = this.value + '% elapsed SLA'" type="range" value="75"/>
+<input className="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="sla-slider" max="90" min="50" onChange={() => {}} type="range" defaultValue="75" />
 <div className="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
 <span>50% (Early Flag)</span>
 <span>75% (Standard Municipal Trigger)</span>

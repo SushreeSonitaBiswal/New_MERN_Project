@@ -597,7 +597,7 @@ export default function CategoryManagement() {
           </span>
 </div>
 
-<form className="flex flex-col gap-space-md" id="routingConfigForm" onsubmit="event.preventDefault();">
+<form className="flex flex-col gap-space-md" id="routingConfigForm" onSubmit={(e) => e.preventDefault()}>
 
 <div className="flex flex-col gap-1.5">
 <label className="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">Category Label</label>

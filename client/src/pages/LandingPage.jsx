@@ -36,7 +36,7 @@ export default function LandingPage() {
 </div>
 
 <div className="pt-space-md max-w-xl" id="quick-tracker">
-<form className="p-space-xs rounded-xl bg-surface-container-low shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center gap-space-xs" id="tracker-form" onsubmit="event.preventDefault(); document.getElementById('search-feedback').classList.remove('hidden');">
+<form className="p-space-xs rounded-xl bg-surface-container-low shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center gap-space-xs" id="tracker-form" onSubmit={(e) => e.preventDefault()}>
 <div className="flex items-center flex-1 px-space-sm py-2 bg-surface-container-lowest rounded-lg">
 <span className="material-symbols-outlined text-outline text-[20px] mr-2">tag</span>
 <input className="w-full bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none" id="tracking-input" placeholder="Enter Complaint ID (e.g. #FMA-8492) or street name..." required="" type="text"/>

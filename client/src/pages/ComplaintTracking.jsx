@@ -22,7 +22,7 @@ export default function ComplaintTracking() {
 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
         Live Audit Stream
       </span>
-<button className="px-space-sm py-1 rounded bg-surface-container-lowest shadow-sm hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-all" id="copyCaseBtn" onclick="navigator.clipboard.writeText('FMA-8421'); this.innerText='Copied!';" type="button">
+<button className="px-space-sm py-1 rounded bg-surface-container-lowest shadow-sm hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-all" id="copyCaseBtn" onClick={() => {}} type="button">
         Copy ID
       </button>
 </div>
@@ -404,7 +404,7 @@ export default function ComplaintTracking() {
 <textarea className="w-full p-space-sm bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner resize-none leading-relaxed" rows="3">The repair was completed so quickly, and the new LED fixture makes our crosswalk feel safe at night again. Thank you!</textarea>
 </div>
 
-<button className="w-full h-11 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md font-semibold hover:opacity-95 shadow transition-all flex items-center justify-center gap-2" onclick="this.innerText='Thank You! Review Recorded'; this.classList.add('bg-primary-container', 'opacity-90');" type="button">
+<button className="w-full h-11 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md font-semibold hover:opacity-95 shadow transition-all flex items-center justify-center gap-2" onClick={() => {}} type="button">
 <span className="material-symbols-outlined text-[18px]">send</span>
 <span>Submit Citizen Rating</span>
 </button>
@@ -424,7 +424,7 @@ export default function ComplaintTracking() {
 <span className="font-mono-data text-mono-data text-on-surface-variant truncate px-2 flex-1">
               https://fixmyarea.gov/oakwood/fma-8421
             </span>
-<button className="px-3 py-1 bg-surface-container-lowest text-on-surface rounded font-label-sm text-label-sm shadow-sm hover:bg-surface-container transition-colors" onclick="navigator.clipboard.writeText('https://fixmyarea.gov/oakwood/fma-8421'); this.innerText='Copied';" type="button">
+<button className="px-3 py-1 bg-surface-container-lowest text-on-surface rounded font-label-sm text-label-sm shadow-sm hover:bg-surface-container transition-colors" onClick={() => {}} type="button">
               Copy
             </button>
 </div>
@@ -451,7 +451,7 @@ export default function ComplaintTracking() {
 <span className="font-body-sm text-body-sm text-on-surface-variant">Includes cryptographic signature &amp; photometric compliance report (PDF, 1.4 MB).</span>
 </div>
 </div>
-<button className="w-full mt-space-md py-2.5 px-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center justify-center gap-2" onclick="alert('Downloading municipal verification packet for #FMA-8421...');" type="button">
+<button className="w-full mt-space-md py-2.5 px-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center justify-center gap-2" onClick={() => {}} type="button">
 <span className="material-symbols-outlined text-[18px] text-primary">download</span>
 <span>Download Official Report (PDF)</span>
 </button>
