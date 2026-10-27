@@ -1,449 +1,858 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 export default function CitizenDashboard() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [stats, setStats] = useState({
+    totalReported: 14,
+    inProgress: 2,
+    resolved: 11,
+    avgResolution: '2.4',
+  });
+
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true);
+        const [complaintsRes, analyticsRes] = await Promise.allSettled([
+          api.get('/complaints'),
+          api.get('/analytics/overview'),
+        ]);
+
+        if (complaintsRes.status === 'fulfilled' && complaintsRes.value.data.success) {
+          const list = complaintsRes.value.data.data;
+          if (list && list.length > 0) {
+            setComplaints(list);
+          }
+        }
+
+        if (analyticsRes.status === 'fulfilled' && analyticsRes.value.data.success) {
+          const kpis = analyticsRes.value.data.data.kpis;
+          if (kpis) {
+            setStats({
+              totalReported: kpis.totalReports || 14,
+              inProgress: kpis.inProgressReports || 2,
+              resolved: kpis.resolvedReports || 11,
+              avgResolution: kpis.avgResolutionHours ? (kpis.avgResolutionHours / 24).toFixed(1) : '2.4',
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching dashboard data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  // Fallback demo complaints matching the exact screenshot if backend is empty
+  const displayComplaints =
+    complaints.length > 0
+      ? complaints
+      : [
+          {
+            _id: '1',
+            ticketId: 'FMA-8492',
+            status: 'in-progress',
+            statusLabel: 'In Progress',
+            categoryName: 'POTHOLE & ROADWORK',
+            title: 'Large dangerous pothole near Oakwood High School crossing',
+            description:
+              'Deep road cavity spanning approx 3 feet across primary southbound lane. Causing traffic swerves near school crosswalk zone.',
+            location: { address: '4th Ave & Elm St' },
+            assignedText: 'Assigned: Road Crew Beta',
+            timeAgo: 'Submitted 2 days ago',
+          },
+          {
+            _id: '2',
+            ticketId: 'FMA-8488',
+            status: 'dispatched',
+            statusLabel: 'Assigned',
+            categoryName: 'WASTE MANAGEMENT',
+            title: 'Overflowing municipal recycling dumpster attracting pests',
+            description:
+              'Cardboard and plastic bins have reached capacity over the holiday weekend. Bags spilling onto pedestrian walking pathway.',
+            location: { address: '12 Maple St Park' },
+            assignedText: 'Dispatched: Fleet #04',
+            timeAgo: 'Submitted 3 days ago',
+          },
+          {
+            _id: '3',
+            ticketId: 'FMA-8421',
+            status: 'resolved',
+            statusLabel: 'Resolved',
+            categoryName: 'STREETLIGHTS & ELECTRICAL',
+            title: 'Broken pedestrian streetlight fixture flickering continuously',
+            description:
+              'Luminary head fixture replaced with high-efficiency LED pod and photocell sensor recalibrated. Completed on June 2.',
+            location: { address: 'Corner of Pine & 7th' },
+            assignedText: 'Audited by Inspector G. Lin',
+            timeAgo: 'Submitted 1 week ago',
+          },
+        ];
+
   return (
-    <div className="w-full min-h-screen">
-      <aside className="fixed left-0 top-0 h-full w-[250px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div className="flex flex-col flex-1 overflow-y-auto"><div className="p-space-md flex items-center gap-space-sm"><img alt="FixMyArea Brand Logo" className="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UFgGY8YFJ_uSwMb-1C2HU22kFZeAM_us6EfAz1AkcobGX2c3hO7A9abO8q-2fUVCGSnQMlFgCnByOnW73UCwhkwPQFiPlDoCXK7_jT_FfOSE3R4xg6XvfiQmFTXgGaRxepr6XLVClA0xid1pDbNBiJ3TT9FiRpp2xrTLTGNBKVusmHnfiKoqjl7lupXWVZu7x-KPOqlCVcHESfpAH3sr7-VT_Ih5hjV37GaHkOAJc9bq1aUMuSui-e"/><div className="flex flex-col"><span className="font-headline-sm text-headline-sm text-on-surface">FixMyArea</span><span className="font-label-sm text-label-sm text-on-surface-variant">MUNICIPAL PORTAL</span></div></div><div className="px-space-md pb-space-sm"><div className="inline-flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-high rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-primary"></span><span className="font-label-sm text-label-sm text-on-surface">Civic Portal • Live</span></div></div><nav className="flex flex-col gap-1 px-space-sm pt-space-xs" ><a aria-current="page" className="flex items-center gap-space-sm px-space-sm py-2 transition-colors bg-primary-container text-on-primary font-label-lg rounded-lg"  href="#"><span className="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">add_alert</span><span>Report Issue</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">assignment</span><span>My Complaints</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">engineering</span><span>Staff Workbench</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Management</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">query_stats</span><span>Analytics</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div><div className="p-space-sm flex flex-col gap-space-sm"><div className="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs"><span className="material-symbols-outlined text-primary text-[20px] mt-0.5">support_agent</span><div><p className="font-label-md text-label-md text-on-surface">Municipal Helpline</p><p className="font-body-sm text-body-sm text-on-surface-variant">Dial 311 (24/7 Support)</p></div></div><div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors"><div className="flex items-center gap-space-xs"><img alt="Profile" className="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><div className="flex flex-col text-left"><span className="font-label-md text-label-md text-on-surface">Marcus Vance</span><span className="font-label-sm text-label-sm text-on-surface-variant">Field Dispatcher</span></div></div><button className="text-on-surface-variant hover:text-on-surface" type="button"><span className="material-symbols-outlined text-[18px]">expand_more</span></button></div></div></aside><div className="pl-[250px]"><header className="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div className="flex items-center gap-space-md"><div className="flex items-center gap-space-xs text-on-surface-variant"><span className="material-symbols-outlined text-[18px]">location_city</span><span className="font-label-md text-label-md">FixMyArea</span><span className="material-symbols-outlined text-[14px]">chevron_right</span><div className="inline-flex items-center gap-1 bg-surface-container-low px-space-sm py-1 rounded-full text-on-surface"><span className="material-symbols-outlined text-primary text-[16px]">pin_drop</span><span className="font-label-md text-label-md">Oakwood District 4</span><span className="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_drop_down</span></div></div><div className="relative w-80 lg:w-96"><span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span><input className="w-full h-9 pl-9 pr-4 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search complaints by ID, street, or category..." type="text"/></div></div><div className="flex items-center gap-space-md"><button className="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span className="material-symbols-outlined text-[22px]">notifications</span><span className="absolute top-1.5 right-1.5 w-4 h-4 bg-error text-on-error rounded-full font-label-sm text-[10px] flex items-center justify-center font-bold">3</span></button><a className="inline-flex items-center gap-space-xs px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-95 transition-all"  href="#"><span className="material-symbols-outlined text-[18px]">add</span><span>Report Problem</span></a><div className="flex items-center gap-space-xs pl-space-xs cursor-pointer"><img alt="Profile" className="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><span className="material-symbols-outlined text-[18px] text-on-surface-variant">keyboard_arrow_down</span></div></div></header><main className="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg"><div className="flex flex-col w-full gap-space-lg">
-<div className="relative overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
-<div className="relative z-10 flex flex-col gap-1 max-w-2xl">
-<div className="flex items-center gap-space-xs">
-<span className="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-fixed/40 text-on-primary-fixed-variant font-label-sm text-label-sm">
-<span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          Ward 4 Citizen Portal
-        </span>
-<span className="font-mono-data text-mono-data text-on-surface-variant">• Verified Resident #CK-9912</span>
-</div>
-<h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">
-        Welcome back, Sarah Jenkins
-      </h1>
-<p className="font-body-md text-body-md text-on-surface-variant">
-        Your local area: <span className="font-semibold text-on-surface">Oakwood Central &amp; West Park Sector</span>. You have <span className="text-primary font-semibold">2 active tickets</span> currently being serviced by municipal crews.
-      </p>
-</div>
-<div className="relative z-10 flex items-center gap-space-sm self-start md:self-auto shrink-0">
-<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-lg text-label-lg shadow-sm" type="button">
-<span className="material-symbols-outlined text-[18px]">history</span>
-<span>Ticket Archive</span>
-</button>
-<button className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-lg text-label-lg shadow-sm" type="button">
-<span className="material-symbols-outlined text-[20px]">add_circle</span>
-<span>+ Report New Problem</span>
-</button>
-</div>
-<div className="absolute -right-12 -top-12 w-64 h-64 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none"></div>
-<div className="absolute right-48 -bottom-16 w-48 h-48 rounded-full bg-secondary-fixed/20 blur-2xl pointer-events-none"></div>
-</div>
-<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
-<div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
-<div className="flex items-center justify-between">
-<span className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Total Reported</span>
-<div className="w-9 h-9 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-[20px]">flag</span>
-</div>
-</div>
-<div className="mt-4 flex items-baseline gap-space-xs">
-<span className="font-display-hero text-display-hero text-on-surface">14</span>
-<span className="font-label-md text-label-md text-on-surface-variant">issues</span>
-</div>
-<div className="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-mono-data text-mono-data">
-<span className="inline-flex items-center gap-1 text-primary font-semibold">
-<span className="material-symbols-outlined text-[16px]">arrow_upward</span>
-          +2 this month
-        </span>
-<span>Lifetime total</span>
-</div>
-</div>
-<div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
-<div className="flex items-center justify-between">
-<span className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">In Progress</span>
-<div className="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-secondary-container">
-<span className="material-symbols-outlined text-[20px]">pending_actions</span>
-</div>
-</div>
-<div className="mt-4 flex items-baseline gap-space-xs">
-<span className="font-display-hero text-display-hero text-on-surface">02</span>
-<span className="font-label-md text-label-md text-on-surface-variant">under repair</span>
-</div>
-<div className="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-mono-data text-mono-data">
-<span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-semibold text-label-sm">
-<span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-          Scheduled Today
-        </span>
-<span>Oakwood Sector</span>
-</div>
-</div>
-<div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
-<div className="flex items-center justify-between">
-<span className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Resolved</span>
-<div className="w-9 h-9 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-[20px]">task_alt</span>
-</div>
-</div>
-<div className="mt-4 flex items-baseline gap-space-xs">
-<span className="font-display-hero text-display-hero text-on-surface">11</span>
-<span className="font-label-md text-label-md text-on-surface-variant">resolved</span>
-</div>
-<div className="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-mono-data text-mono-data">
-<span className="inline-flex items-center gap-1 text-primary font-semibold">
-<span className="material-symbols-outlined text-[16px]">verified</span>
-          91% resolution rate
-        </span>
-<span>3 pending sign-off</span>
-</div>
-</div>
-<div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-1">
-<span className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Avg. Resolution</span>
-<div className="group relative cursor-pointer flex items-center">
-<span className="material-symbols-outlined text-[16px] text-on-surface-variant">info</span>
-<div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-48 p-2 rounded-lg bg-inverse-surface text-inverse-on-surface font-body-sm text-body-sm shadow-xl z-30">
-              Calculated based on timestamp from intake dispatch to final field supervisor verification.
+    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30] flex font-sans antialiased">
+      {/* 1. LEFT SIDEBAR */}
+      <aside className="w-[260px] min-h-screen bg-white border-r border-[#e2e8f0] flex flex-col justify-between shrink-0 sticky top-0 h-screen z-30">
+        <div className="flex flex-col">
+          {/* Logo Header */}
+          <div className="p-5 pb-3 flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-[#005c55] text-white flex items-center justify-center shadow-sm">
+              <span className="material-symbols-outlined text-[20px]">apartment</span>
             </div>
-</div>
-</div>
-<div className="w-9 h-9 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
-<span className="material-symbols-outlined text-[20px]">timelapse</span>
-</div>
-</div>
-<div className="mt-4 flex items-baseline gap-space-xs">
-<span className="font-display-hero text-display-hero text-on-surface">2.4</span>
-<span className="font-label-md text-label-md text-on-surface-variant">Days</span>
-</div>
-<div className="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-mono-data text-mono-data">
-<span className="text-primary font-semibold">0.8d faster</span>
-<span>than City Avg (3.2d)</span>
-</div>
-</div>
-</div>
-<div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-md flex flex-col gap-space-sm">
-<div className="flex items-center justify-between px-space-xs">
-<div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary text-[20px]">bolt</span>
-<span className="font-headline-sm text-headline-sm text-on-surface">Quick Issue Shortcuts</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant hidden sm:inline">— Direct dispatch to field teams</span>
-</div>
-<span className="font-label-sm text-label-sm text-on-surface-variant uppercase">Instant Forms</span>
-</div>
-<div className="grid grid-cols-2 md:grid-cols-4 gap-space-sm">
-<button className="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-left group" type="button">
-<div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
-<span className="material-symbols-outlined text-[22px]">car_crash</span>
-</div>
-<div className="flex flex-col min-w-0">
-<span className="font-label-lg text-label-lg text-on-surface truncate">Report Pothole</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Asphalt &amp; Roadways</span>
-</div>
-</button>
-<button className="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-left group" type="button">
-<div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
-<span className="material-symbols-outlined text-[22px]">delete_sweep</span>
-</div>
-<div className="flex flex-col min-w-0">
-<span className="font-label-lg text-label-lg text-on-surface truncate">Garbage Accumulation</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Sanitation Dept</span>
-</div>
-</button>
-<button className="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-left group" type="button">
-<div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform shadow-sm">
-<span className="material-symbols-outlined text-[22px]">lightbulb</span>
-</div>
-<div className="flex flex-col min-w-0">
-<span className="font-label-lg text-label-lg text-on-surface truncate">Streetlight Outage</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Electrical Grid</span>
-</div>
-</button>
-<button className="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-left group" type="button">
-<div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform shadow-sm">
-<span className="material-symbols-outlined text-[22px]">water_damage</span>
-</div>
-<div className="flex flex-col min-w-0">
-<span className="font-label-lg text-label-lg text-on-surface truncate">Water Leakage</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Mains &amp; Hydrants</span>
-</div>
-</button>
-</div>
-</div>
-<div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
-<div className="lg:col-span-8 flex flex-col gap-space-md">
-<div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-lg">
-<div className="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md gap-space-sm">
-<div>
-<div className="flex items-center gap-2">
-<h2 className="font-headline-md text-headline-md text-on-surface">Active &amp; Recent Complaints</h2>
-<span className="px-2 py-0.5 rounded-full bg-surface-container-high font-mono-data text-label-sm text-on-surface">3 entries</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Real-time status tracking and civic engineering dispatch logs</p>
-</div>
-<div className="flex items-center gap-space-xs">
-<button className="px-space-sm py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-1" type="button">
-<span className="material-symbols-outlined text-[16px]">filter_list</span>
-<span>Filter</span>
-</button>
-<button className="px-space-sm py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-1" type="button">
-<span className="material-symbols-outlined text-[16px]">download</span>
-<span>Export</span>
-</button>
-</div>
-</div>
-<div className="flex flex-col gap-space-sm">
-<div className="p-space-md rounded-xl bg-surface-container-low/70 hover:bg-surface-container-low transition-colors shadow-sm flex flex-col gap-space-sm">
-<div className="flex flex-wrap items-center justify-between gap-space-xs">
-<div className="flex items-center gap-space-xs flex-wrap">
-<span className="font-mono-data text-mono-data font-semibold text-primary px-2 py-0.5 rounded bg-surface-container-lowest shadow-xs">#FMA-8492</span>
-<span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md">
-<span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  In Progress
-                </span>
-<span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Pothole &amp; Roadwork</span>
-</div>
-<span className="font-mono-data text-mono-data text-on-surface-variant">Submitted 2 days ago</span>
-</div>
-<div className="flex flex-col gap-1">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">
-                Large dangerous pothole near Oakwood High School crossing
-              </h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                Deep road cavity spanning approx 3 feet across primary southbound lane. Causing traffic swerves near school crosswalk zone.
+            <div>
+              <h1 className="font-bold text-sm tracking-tight text-[#0b1c30]">FixMyArea</h1>
+              <p className="text-[10px] text-[#64748b] tracking-wider uppercase font-semibold">
+                Municipal Portal
               </p>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between pt-space-xs gap-space-sm">
-<div className="flex items-center gap-space-md flex-wrap text-on-surface-variant font-body-sm text-body-sm">
-<span className="inline-flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px] text-primary">location_on</span>
-                  4th Ave &amp; Elm St
+            </div>
+          </div>
+
+          {/* Live Status Tag */}
+          <div className="px-5 py-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#eff4ff] rounded-full text-xs font-medium text-[#1e293b]">
+              <span className="w-2 h-2 rounded-full bg-[#005c55] animate-pulse"></span>
+              <span>Civic Portal • Live</span>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="px-3 py-3 space-y-1">
+            <Link
+              to="/citizen/dashboard"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg bg-[#005c55] text-white font-medium text-xs shadow-sm transition-all"
+            >
+              <span className="material-symbols-outlined text-[18px]">dashboard</span>
+              <span>Dashboard</span>
+            </Link>
+
+            <Link
+              to="/report"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">notification_important</span>
+              <span>Report Issue</span>
+            </Link>
+
+            <Link
+              to="/citizen/my-complaints"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">assignment</span>
+              <span>My Complaints</span>
+            </Link>
+
+            <Link
+              to="/staff/workbench"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">engineering</span>
+              <span>Staff Workbench</span>
+            </Link>
+
+            <Link
+              to="/admin/complaints"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+              <span>Admin Management</span>
+            </Link>
+
+            <Link
+              to="/admin/analytics"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">query_stats</span>
+              <span>Analytics</span>
+            </Link>
+
+            <Link
+              to="/admin/settings"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">settings</span>
+              <span>Settings</span>
+            </Link>
+          </nav>
+        </div>
+
+        {/* Sidebar Footer Cards */}
+        <div className="p-4 space-y-3">
+          {/* Helpline */}
+          <div className="p-3 rounded-xl bg-[#eff4ff] border border-[#dbeafe] flex items-center gap-3">
+            <span className="material-symbols-outlined text-[#006780] text-[22px]">
+              headset_mic
+            </span>
+            <div>
+              <p className="text-xs font-semibold text-[#0f172a]">Municipal Helpline</p>
+              <p className="text-[11px] text-[#64748b]">Dial 311 (24/7 Support)</p>
+            </div>
+          </div>
+
+          {/* User Profile Info */}
+          <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover ring-2 ring-[#005c55]/20"
+              />
+              <div>
+                <p className="text-xs font-bold text-[#0f172a] leading-tight">
+                  {user?.name || 'Sarah Jenkins'}
+                </p>
+                <p className="text-[10px] text-[#64748b]">
+                  {user?.role === 'staff' ? 'Field Dispatcher' : 'Verified Resident'}
+                </p>
+              </div>
+            </div>
+            <span className="material-symbols-outlined text-[16px] text-[#94a3b8]">
+              keyboard_arrow_down
+            </span>
+          </div>
+        </div>
+      </aside>
+
+      {/* 2. MAIN APP CONTENT */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* TOP NAVBAR */}
+        <header className="h-16 bg-white border-b border-[#e2e8f0] px-8 flex items-center justify-between sticky top-0 z-20">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-xs text-[#64748b]">
+              <span className="font-semibold text-[#0f172a]">FixMyArea</span>
+              <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#eff4ff] rounded-full text-[#005c55] font-semibold text-xs border border-[#dbeafe]">
+                <span className="material-symbols-outlined text-[15px]">location_on</span>
+                <span>Oakwood District 4</span>
+                <span className="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+              </div>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative w-80 ml-4 hidden md:block">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-[#94a3b8]">
+                search
+              </span>
+              <input
+                type="text"
+                placeholder="Search complaints by ID, street, or category..."
+                className="w-full h-9 pl-9 pr-4 rounded-lg bg-[#f1f5f9] text-xs text-[#0f172a] placeholder-[#94a3b8] focus:outline-none focus:ring-1 focus:ring-[#005c55] border-none"
+              />
+            </div>
+          </div>
+
+          {/* Right Action Buttons */}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/notifications"
+              className="relative w-9 h-9 rounded-full bg-[#f8f9ff] border border-[#e2e8f0] flex items-center justify-center text-[#475569] hover:bg-[#f1f5f9] transition-colors"
+            >
+              <span className="material-symbols-outlined text-[20px]">notifications</span>
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#e11d48] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                3
+              </span>
+            </Link>
+
+            <Link
+              to="/report"
+              className="h-9 px-4 rounded-lg bg-[#005c55] hover:bg-[#004d47] text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition-all"
+            >
+              <span className="material-symbols-outlined text-[18px]">add</span>
+              <span>Report Problem</span>
+            </Link>
+
+            <div className="flex items-center gap-1 cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+                alt="Avatar"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="material-symbols-outlined text-[16px] text-[#64748b]">
+                expand_more
+              </span>
+            </div>
+          </div>
+        </header>
+
+        {/* DASHBOARD BODY */}
+        <main className="p-8 max-w-[1400px] w-full mx-auto space-y-6">
+          {/* Welcome Banner */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 mb-1.5">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#ecfdf5] text-[#065f46] text-[11px] font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                  Ward 4 Citizen Portal
                 </span>
-<span className="inline-flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px]">group</span>
-                  Assigned: Road Crew Beta
+                <span className="text-[11px] text-[#64748b]">• Verified Resident #CK-9912</span>
+              </div>
+              <h1 className="text-2xl font-bold text-[#0f172a] tracking-tight">
+                Welcome back, {user?.name || 'Sarah Jenkins'}
+              </h1>
+              <p className="text-xs text-[#64748b] mt-0.5">
+                Your local area:{' '}
+                <span className="font-semibold text-[#334155]">
+                  Oakwood Central & West Park Sector
                 </span>
-</div>
-<div className="flex items-center gap-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary hover:opacity-95 font-label-md text-label-md shadow-sm transition-all flex items-center gap-1" type="button">
-<span>Track Details</span>
-<span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</div>
-<div className="p-space-md rounded-xl bg-surface-container-low/70 hover:bg-surface-container-low transition-colors shadow-sm flex flex-col gap-space-sm">
-<div className="flex flex-wrap items-center justify-between gap-space-xs">
-<div className="flex items-center gap-space-xs flex-wrap">
-<span className="font-mono-data text-mono-data font-semibold text-primary px-2 py-0.5 rounded bg-surface-container-lowest shadow-xs">#FMA-8488</span>
-<span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md">
-<span className="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-                  Assigned
-                </span>
-<span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Waste Management</span>
-</div>
-<span className="font-mono-data text-mono-data text-on-surface-variant">Submitted 3 days ago</span>
-</div>
-<div className="flex flex-col gap-1">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">
-                Overflowing municipal recycling dumpster attracting pests
-              </h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                Cardboard and plastic bins have reached capacity over the holiday weekend. Bags spilling onto pedestrian walking pathway.
+                . You have <span className="font-semibold text-[#005c55]">2 active tickets</span>{' '}
+                currently being serviced by municipal crews.
               </p>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between pt-space-xs gap-space-sm">
-<div className="flex items-center gap-space-md flex-wrap text-on-surface-variant font-body-sm text-body-sm">
-<span className="inline-flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px] text-primary">location_on</span>
-                  12 Maple St Park
+            </div>
+
+            <div className="flex items-center gap-2.5">
+              <Link
+                to="/citizen/my-complaints"
+                className="h-9 px-4 rounded-lg bg-white border border-[#cbd5e1] text-[#334155] font-semibold text-xs flex items-center gap-1.5 hover:bg-[#f8fafc] transition-colors shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[16px] text-[#64748b]">
+                  inventory_2
                 </span>
-<span className="inline-flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px]">local_shipping</span>
-                  Dispatched: Fleet #04
+                <span>Ticket Archive</span>
+              </Link>
+              <Link
+                to="/report"
+                className="h-9 px-4 rounded-lg bg-[#005c55] text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-[#004d47] transition-all shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[16px]">add</span>
+                <span>Report New Problem</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* 4 Metric Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Card 1: Total Reported */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748b]">
+                  TOTAL REPORTED
                 </span>
-</div>
-<div className="flex items-center gap-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-md text-label-md transition-all flex items-center gap-1" type="button">
-<span>Track Details</span>
-<span className="material-symbols-outlined text-[16px]">open_in_new</span>
-</button>
-</div>
-</div>
-</div>
-<div className="p-space-md rounded-xl bg-surface-container-low/70 hover:bg-surface-container-low transition-colors shadow-sm flex flex-col gap-space-sm">
-<div className="flex flex-wrap items-center justify-between gap-space-xs">
-<div className="flex items-center gap-space-xs flex-wrap">
-<span className="font-mono-data text-mono-data font-semibold text-primary px-2 py-0.5 rounded bg-surface-container-lowest shadow-xs">#FMA-8421</span>
-<span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-fixed/40 text-on-primary-fixed-variant font-label-md text-label-md">
-<span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                  Resolved
+                <div className="w-8 h-8 rounded-lg bg-[#eff4ff] text-[#006780] flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[18px]">flag</span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl font-extrabold text-[#0f172a]">
+                    {stats.totalReported}
+                  </span>
+                  <span className="text-xs text-[#64748b] font-medium">issues</span>
+                </div>
+                <p className="text-[11px] text-[#059669] font-medium mt-3 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[14px]">arrow_upward</span>
+                  <span>+2 this month</span>
+                  <span className="text-[#94a3b8] font-normal">Lifetime total</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: In Progress */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748b]">
+                  IN PROGRESS
                 </span>
-<span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Streetlights &amp; Electrical</span>
-</div>
-<span className="font-mono-data text-mono-data text-on-surface-variant">Submitted 1 week ago</span>
-</div>
-<div className="flex flex-col gap-1">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">
-                Broken pedestrian streetlight fixture flickering continuously
-              </h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                Luminary head fixture replaced with high-efficiency LED pod and photocell sensor recalibrated. Completed on June 2.
-              </p>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between pt-space-xs gap-space-sm">
-<div className="flex items-center gap-space-md flex-wrap text-on-surface-variant font-body-sm text-body-sm">
-<span className="inline-flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px] text-primary">location_on</span>
-                  Corner of Pine &amp; 7th
+                <div className="w-8 h-8 rounded-lg bg-[#eff4ff] text-[#006780] flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[18px]">pending_actions</span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl font-extrabold text-[#0f172a]">
+                    {String(stats.inProgress).padStart(2, '0')}
+                  </span>
+                  <span className="text-xs text-[#64748b] font-medium">under repair</span>
+                </div>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded-md bg-[#e0f2fe] text-[#0369a1] text-[10px] font-bold">
+                    Scheduled Today
+                  </span>
+                  <span className="text-[11px] text-[#64748b]">Oakwood Sector</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: Resolved */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748b]">
+                  RESOLVED
                 </span>
-<span className="inline-flex items-center gap-1 text-primary">
-<span className="material-symbols-outlined text-[16px]">verified</span>
-                  Audited by Inspector G. Lin
-                </span>
-</div>
-<div className="flex items-center gap-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-label-md text-label-md shadow-xs transition-all flex items-center gap-1" type="button">
-<span className="material-symbols-outlined text-[16px] text-secondary">star_half</span>
-<span>Rate Service</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-lg flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Ward Inspection Hotspots</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Live civic hazard radar across Sector 4</p>
-</div>
-<span className="inline-flex items-center gap-1 px-space-sm py-1 rounded-full bg-surface-container font-mono-data text-label-sm text-on-surface">
-            Updated 12m ago
-          </span>
-</div>
-<div className="w-full h-56 bg-cover bg-center rounded-xl shadow-inner relative overflow-hidden flex items-end p-space-md"  style={{"backgroundImage":"url('https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg')"}}>
-<div className="relative z-10 w-full p-space-sm rounded-lg bg-surface-container-lowest/90 backdrop-blur-md flex items-center justify-between">
-<div className="flex items-center gap-space-sm">
-<span className="w-3 h-3 rounded-full bg-secondary animate-ping"></span>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Live Repair Unit En Route</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">ETA 22 minutes to 4th Ave &amp; Elm</span>
-</div>
-</div>
-<button className="px-space-sm py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm" type="button">
-              Open Map
-            </button>
-</div>
-</div>
-</div>
-</div>
-<div className="lg:col-span-4 flex flex-col gap-space-lg">
-<div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-lg flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary text-[20px]">feed</span>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Ward Activity Feed</h3>
-</div>
-<span className="font-label-sm text-label-sm text-primary cursor-pointer hover:underline">View All</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant -mt-2">Recent neighborhood fixes verified by Oakwood district dispatch.</p>
-<div className="flex flex-col gap-space-md">
-<div className="flex flex-col gap-space-xs p-space-sm rounded-lg bg-surface-container-low/50">
-<div className="flex items-center justify-between text-on-surface-variant font-mono-data text-label-sm">
-<span className="font-semibold text-on-surface">Stormdrain Unblocked</span>
-<span>Today, 10:15 AM</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface">High Street culvert cleared of debris prior to forecasted rains.</p>
-<div className="grid grid-cols-2 gap-space-xs mt-1">
-<div className="relative rounded-lg overflow-hidden group">
-<img className="w-full h-24 object-cover"  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-hKysXsZtnCy4C9MOM_Z-_Niiz-GlOFHZfAzidIYy8wlNoV0SyWa3aW3p6MJkG3-LUITyOmGUb64bpCjSt2f_XTkFLXW3749NVsnijtZ0QZTxmvC1DNY589LaioQLOzOHNm7q7VDEE6n5YydIE-cp_Oa1EIIHnfDyB5AceK0GQl_LrUc59bjv2GD4K6KRtrLDnsiSYXeWq__5U5_sBS48BJcID8BZaWPT3r4XLsO0j7NjiQ6CXzs"/>
-<span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-[10px]">Before</span>
-</div>
-<div className="relative rounded-lg overflow-hidden group">
-<img className="w-full h-24 object-cover"  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6_6wTtSMQwuuBRbvku0_A3w5EHPVeVzittH0BQ0SlZKKgdGk94ZPlSNUq0YTpLJ0gpRND43av_WKdTEChBjuQpUEPul0MAcpHh8eL7KLvuK8CJCslM2D9mpldobVDhlMwADAyRNuR3dmhB0nG6Ia7C3RBn8Ph-7LbYJ6VPewT8n62l9VbpE-L8eOYAw8DBMtYWFUOZuRIXzjRTnSkr-phAtHS--p4tx04wc32PgpjVkHcII0AvCE"/>
-<span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-primary/90 text-on-primary font-label-sm text-[10px]">Resolved</span>
-</div>
-</div>
-</div>
-<div className="flex flex-col gap-space-xs p-space-sm rounded-lg bg-surface-container-low/50">
-<div className="flex items-center justify-between text-on-surface-variant font-mono-data text-label-sm">
-<span className="font-semibold text-on-surface">Crosswalk Repainting</span>
-<span>Yesterday, 3:40 PM</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface">Fresh thermal reflective paint applied across Oakwood Elementary crosswalk.</p>
-<div className="grid grid-cols-2 gap-space-xs mt-1">
-<div className="relative rounded-lg overflow-hidden group">
-<img className="w-full h-24 object-cover"  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCCObYf127PTvDxcrTqURVhaTLv3FqhBj2O8nEeJWBBTSZrkQay7cnYw2d62byghKi-fEsDdVa3NUrUcr1QAKFS-OynGWeJYUmnHAtQml9xCEfCO8kwD9gDhCMj6nIhh_3nCNAQTCTfEjAwhX1ZnYZ90Y0TRCeRjbA-2tY0Rj41XcmbxwjendGX3bOyIK22b21fHnSMOimDdChclBTbCtOy6qk1a2GGuUd74n2B-_W22Jfv4RtAJA"/>
-<span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-[10px]">Before</span>
-</div>
-<div className="relative rounded-lg overflow-hidden group">
-<img className="w-full h-24 object-cover"  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb_laLVV6CgsUXkj712TgVRXspPtABgfgXVyY1QpOvdQQxNzq1CMhkkD05NKMaKGaTh7xvgsRpNx9V4aZDox7bviRXAQJYRMD6ZtkyDHCxairylvlFIwsF4FJORwY86B7SDClG_Xf0cwQANanufE4Ho0oeV2vGrSpFTssgy8jCf-NmobcJb4zAS15eqLJBWHJsOtoUWufCbkFYZEDiOBvI9FhBNQkjfJ8LGwm2UyY9qUx5NE6wTVA"/>
-<span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-primary/90 text-on-primary font-label-sm text-[10px]">Resolved</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="rounded-xl bg-surface-container-lowest shadow-sm p-space-lg flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-[20px]">eco</span>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Community Impact</h3>
-</div>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container font-mono-data">Q2 2025</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant -mt-2">Cumulative civic restoration outcomes for Oakwood residents.</p>
-<div className="flex flex-col gap-space-md">
-<div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
-<div className="flex items-center justify-between">
-<span className="font-label-md text-label-md text-on-surface font-semibold">Street Hazards Cleared</span>
-<span className="font-headline-sm text-headline-sm text-primary font-bold">142</span>
-</div>
-<div className="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-<div className="h-full bg-primary-container rounded-full" style={{"width":"82%"}}></div>
-</div>
-<div className="flex items-center justify-between font-mono-data text-body-sm text-on-surface-variant">
-<span>Goal: 175 tickets</span>
-<span>82% Achieved</span>
-</div>
-</div>
-<div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
-<div className="flex items-center justify-between">
-<span className="font-label-md text-label-md text-on-surface font-semibold">Recycled Municipal Bulk</span>
-<span className="font-headline-sm text-headline-sm text-secondary font-bold">88 Tons</span>
-</div>
-<div className="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-<div className="h-full bg-secondary rounded-full" style={{"width":"73%"}}></div>
-</div>
-<div className="flex items-center justify-between font-mono-data text-body-sm text-on-surface-variant">
-<span>Ward target: 120 Tons</span>
-<span>73% of quarterly cap</span>
-</div>
-</div>
-<div className="p-space-md rounded-xl bg-primary-container text-on-primary flex items-center justify-between shadow-sm">
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-primary-container">Next Civic Clean-Up Day</span>
-<span className="font-headline-sm text-headline-sm">Saturday, June 14</span>
-<span className="font-body-sm text-body-sm text-on-primary-container/90">Oakwood Central Park Pavilion</span>
-</div>
-<button className="w-10 h-10 rounded-lg bg-surface-container-lowest text-primary flex items-center justify-center shadow-xs hover:bg-surface-container-low transition-colors shrink-0" type="button">
-<span className="material-symbols-outlined text-[20px]">calendar_add_on</span>
-</button>
-</div>
-</div>
-</div>
-<div className="rounded-xl bg-surface-container-low p-space-md flex items-center justify-between">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shadow-xs">
-<span className="material-symbols-outlined text-[18px]">emergency</span>
-</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Emergency Gas or Water Line Break?</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Do not file tickets. Contact central emergency dispatch.</span>
-</div>
-</div>
-<button className="px-space-sm py-1 rounded bg-error text-on-error font-label-md text-label-md shrink-0 hover:opacity-90" type="button">
-          Dial 911
-        </button>
-</div>
-</div>
-</div>
-</div></main></div>
+                <div className="w-8 h-8 rounded-lg bg-[#ecfdf5] text-[#059669] flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[18px]">check_circle</span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl font-extrabold text-[#0f172a]">
+                    {String(stats.resolved).padStart(2, '0')}
+                  </span>
+                  <span className="text-xs text-[#64748b] font-medium">resolved</span>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[11px]">
+                  <span className="text-[#059669] font-semibold flex items-center gap-0.5">
+                    <span className="material-symbols-outlined text-[14px]">verified</span> 91%
+                    resolution rate
+                  </span>
+                  <span className="text-[#64748b]">3 pending sign-off</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Avg Resolution */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#64748b]">
+                  <span>AVG. RESOLUTION</span>
+                  <span className="material-symbols-outlined text-[14px] text-[#94a3b8]">info</span>
+                </div>
+                <div className="w-8 h-8 rounded-lg bg-[#eff4ff] text-[#006780] flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[18px]">schedule</span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-[#0f172a]">
+                    {stats.avgResolution}
+                  </span>
+                  <span className="text-xs text-[#64748b] font-medium">Days</span>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[11px]">
+                  <span className="text-[#059669] font-semibold">0.8d faster</span>
+                  <span className="text-[#64748b]">than City Avg (3.2d)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Issue Shortcuts */}
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#0f172a]">
+                <span className="material-symbols-outlined text-[#005c55] text-[18px]">bolt</span>
+                <span>Quick Issue Shortcuts</span>
+                <span className="font-normal text-[#64748b]">— Direct dispatch to field teams</span>
+              </div>
+              <span className="text-[10px] font-bold tracking-wider uppercase text-[#64748b]">
+                INSTANT FORMS
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+              <Link
+                to="/report?category=pothole"
+                className="p-3.5 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#005c55] transition-all flex items-center gap-3 shadow-sm group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#eff4ff] text-[#006780] flex items-center justify-center shrink-0 group-hover:bg-[#005c55] group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">construction</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[#0f172a] group-hover:text-[#005c55] transition-colors">
+                    Report Pothole
+                  </p>
+                  <p className="text-[10px] text-[#64748b]">Asphalt &amp; Roadways</p>
+                </div>
+              </Link>
+
+              <Link
+                to="/report?category=garbage"
+                className="p-3.5 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#005c55] transition-all flex items-center gap-3 shadow-sm group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#eff4ff] text-[#006780] flex items-center justify-center shrink-0 group-hover:bg-[#005c55] group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">delete_sweep</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[#0f172a] group-hover:text-[#005c55] transition-colors">
+                    Garbage Accumulation...
+                  </p>
+                  <p className="text-[10px] text-[#64748b]">Sanitation Dept</p>
+                </div>
+              </Link>
+
+              <Link
+                to="/report?category=streetlight"
+                className="p-3.5 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#005c55] transition-all flex items-center gap-3 shadow-sm group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#eff4ff] text-[#006780] flex items-center justify-center shrink-0 group-hover:bg-[#005c55] group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">lightbulb</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[#0f172a] group-hover:text-[#005c55] transition-colors">
+                    Streetlight Outage
+                  </p>
+                  <p className="text-[10px] text-[#64748b]">Electrical Grid</p>
+                </div>
+              </Link>
+
+              <Link
+                to="/report?category=water"
+                className="p-3.5 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#005c55] transition-all flex items-center gap-3 shadow-sm group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#eff4ff] text-[#006780] flex items-center justify-center shrink-0 group-hover:bg-[#005c55] group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[20px]">water_drop</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[#0f172a] group-hover:text-[#005c55] transition-colors">
+                    Water Leakage
+                  </p>
+                  <p className="text-[10px] text-[#64748b]">Mains &amp; Hydrants</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* TWO COLUMN GRID: Left Tickets & Map | Right Feed & Impact */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* LEFT 8 COLS */}
+            <div className="lg:col-span-8 space-y-6">
+              {/* Complaints List Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-base font-bold text-[#0f172a]">
+                      Active &amp; Recent Complaints
+                    </h2>
+                    <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f1f5f9] text-[#475569] font-semibold">
+                      {displayComplaints.length} entries
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="h-8 px-3 rounded-lg bg-white border border-[#cbd5e1] text-xs font-medium text-[#475569] flex items-center gap-1 hover:bg-[#f8fafc] shadow-sm">
+                      <span className="material-symbols-outlined text-[15px]">filter_list</span>
+                      <span>Filter</span>
+                    </button>
+                    <button className="h-8 px-3 rounded-lg bg-white border border-[#cbd5e1] text-xs font-medium text-[#475569] flex items-center gap-1 hover:bg-[#f8fafc] shadow-sm">
+                      <span className="material-symbols-outlined text-[15px]">file_download</span>
+                      <span>Export</span>
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-xs text-[#64748b] -mt-2">
+                  Real-time status tracking and civic engineering dispatch logs
+                </p>
+
+                {/* Complaint Cards */}
+                <div className="space-y-3.5">
+                  {displayComplaints.map((item) => {
+                    const isResolved =
+                      item.status === 'resolved' || item.statusLabel === 'Resolved';
+                    const isAssigned =
+                      item.status === 'dispatched' || item.statusLabel === 'Assigned';
+                    const isInProgress =
+                      item.status === 'in-progress' || item.statusLabel === 'In Progress';
+
+                    let badgeColor = 'bg-[#e0f2fe] text-[#0369a1]';
+                    let dotColor = 'bg-[#0284c7]';
+                    if (isResolved) {
+                      badgeColor = 'bg-[#ecfdf5] text-[#059669]';
+                      dotColor = 'bg-[#10b981]';
+                    } else if (isAssigned) {
+                      badgeColor = 'bg-[#ede9fe] text-[#6d28d9]';
+                      dotColor = 'bg-[#7c3aed]';
+                    }
+
+                    return (
+                      <div
+                        key={item._id || item.ticketId}
+                        className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm space-y-3 hover:border-[#cbd5e1] transition-all"
+                      >
+                        {/* Meta Tags Header */}
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-[#006780] font-mono text-[11px] bg-[#eff4ff] px-2 py-0.5 rounded">
+                              #{item.ticketId}
+                            </span>
+                            <span
+                              className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeColor}`}
+                            >
+                              <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`}></span>
+                              <span>{item.statusLabel || item.status}</span>
+                            </span>
+                            <span className="text-[10px] font-bold tracking-wider text-[#64748b] uppercase">
+                              {item.categoryName || item.category?.name || 'MUNICIPAL REPAIR'}
+                            </span>
+                          </div>
+                          <span className="text-[11px] text-[#94a3b8]">
+                            {item.timeAgo || 'Recently updated'}
+                          </span>
+                        </div>
+
+                        {/* Title & Description */}
+                        <div>
+                          <h3 className="text-sm font-bold text-[#0f172a] hover:text-[#005c55] cursor-pointer">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs text-[#64748b] mt-1 leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+
+                        {/* Card Bottom / Action */}
+                        <div className="flex items-center justify-between pt-2 border-t border-[#f1f5f9] text-xs">
+                          <div className="flex items-center gap-4 text-[#64748b] text-[11px]">
+                            <span className="flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px] text-[#94a3b8]">
+                                location_on
+                              </span>
+                              <span>{item.location?.address || 'Oakwood District'}</span>
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px] text-[#94a3b8]">
+                                group
+                              </span>
+                              <span>{item.assignedText || 'Assigned: Municipal Crew'}</span>
+                            </span>
+                          </div>
+
+                          {isResolved ? (
+                            <Link
+                              to={`/track?ticket=${item.ticketId}`}
+                              className="px-3 py-1.5 rounded-lg border border-[#e2e8f0] text-xs font-semibold text-[#0f172a] hover:bg-[#f8fafc] flex items-center gap-1"
+                            >
+                              <span className="material-symbols-outlined text-[14px] text-[#eab308]">
+                                star
+                              </span>
+                              <span>Rate Service</span>
+                            </Link>
+                          ) : (
+                            <Link
+                              to={`/track?ticket=${item.ticketId}`}
+                              className="px-3.5 py-1.5 rounded-lg bg-[#005c55] hover:bg-[#004d47] text-white text-xs font-semibold flex items-center gap-1 transition-colors"
+                            >
+                              <span>Track Details</span>
+                              <span className="material-symbols-outlined text-[14px]">
+                                arrow_forward
+                              </span>
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Ward Inspection Hotspots Card */}
+              <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0f172a]">Ward Inspection Hotspots</h3>
+                    <p className="text-xs text-[#64748b]">Live civic hazard radar across Sector 4</p>
+                  </div>
+                  <span className="text-[10px] text-[#64748b] font-medium bg-[#f1f5f9] px-2.5 py-1 rounded-full">
+                    Updated 12m ago
+                  </span>
+                </div>
+
+                {/* Map Mock Graphic */}
+                <div className="h-48 rounded-xl bg-gradient-to-tr from-[#e2e8f0] to-[#f1f5f9] border border-[#cbd5e1] flex flex-col items-center justify-center relative overflow-hidden">
+                  <div className="w-14 h-14 rounded-2xl bg-[#eff4ff] text-[#006780] flex items-center justify-center shadow-md">
+                    <span className="material-symbols-outlined text-[32px]">map</span>
+                  </div>
+
+                  {/* Hotspot Floating Marker */}
+                  <div className="absolute bottom-3 left-4 right-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#e2e8f0] flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-ping"></span>
+                      <span className="text-xs font-bold text-[#0f172a]">
+                        Live Repair Unit En Route
+                      </span>
+                      <span className="text-[11px] text-[#64748b]">
+                        ETA 22 minutes to 4th Ave &amp; Elm
+                      </span>
+                    </div>
+                    <button className="px-3 py-1 bg-[#005c55] text-white text-xs font-semibold rounded-lg hover:bg-[#004d47] transition-all">
+                      Open Map
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT 4 COLS */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* Ward Activity Feed */}
+              <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm space-y-4">
+                <div className="flex items-center justify-between border-b border-[#f1f5f9] pb-3">
+                  <div className="flex items-center gap-1.5 font-bold text-sm text-[#0f172a]">
+                    <span className="material-symbols-outlined text-[18px] text-[#005c55]">
+                      article
+                    </span>
+                    <span>Ward Activity Feed</span>
+                  </div>
+                  <span className="text-xs text-[#006780] font-semibold hover:underline cursor-pointer">
+                    View All
+                  </span>
+                </div>
+
+                <p className="text-xs text-[#64748b] -mt-2">
+                  Recent neighborhood fixes verified by Oakwood district dispatch.
+                </p>
+
+                {/* Feed Item 1: Stormdrain */}
+                <div className="space-y-2 border-b border-[#f1f5f9] pb-4">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-[#0f172a]">Stormdrain Unblocked</span>
+                    <span className="text-[10px] text-[#94a3b8]">Today, 10:15 AM</span>
+                  </div>
+                  <p className="text-xs text-[#64748b] leading-tight">
+                    High Street culvert cleared of debris prior to forecasted rains.
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="relative rounded-lg overflow-hidden border border-[#e2e8f0]">
+                      <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80"
+                        alt="Before fix"
+                        className="h-20 w-full object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/70 text-white text-[9px] font-bold">
+                        Before
+                      </span>
+                    </div>
+                    <div className="relative rounded-lg overflow-hidden border border-[#e2e8f0]">
+                      <img
+                        src="https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=300&q=80"
+                        alt="Resolved fix"
+                        className="h-20 w-full object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-[#059669]/90 text-white text-[9px] font-bold">
+                        Resolved
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feed Item 2: Crosswalk */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-[#0f172a]">Crosswalk Repainting</span>
+                    <span className="text-[10px] text-[#94a3b8]">Yesterday, 3:40 PM</span>
+                  </div>
+                  <p className="text-xs text-[#64748b] leading-tight">
+                    Fresh thermal reflective paint applied across Oakwood Elementary crosswalk.
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="relative rounded-lg overflow-hidden border border-[#e2e8f0]">
+                      <img
+                        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=300&q=80"
+                        alt="Before crosswalk"
+                        className="h-20 w-full object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/70 text-white text-[9px] font-bold">
+                        Before
+                      </span>
+                    </div>
+                    <div className="relative rounded-lg overflow-hidden border border-[#e2e8f0]">
+                      <img
+                        src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=300&q=80"
+                        alt="Resolved crosswalk"
+                        className="h-20 w-full object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-[#059669]/90 text-white text-[9px] font-bold">
+                        Resolved
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Community Impact Card */}
+              <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 font-bold text-sm text-[#0f172a]">
+                    <span className="material-symbols-outlined text-[18px] text-[#005c55]">
+                      nature_people
+                    </span>
+                    <span>Community Impact</span>
+                  </div>
+                  <span className="text-[10px] font-bold tracking-wider uppercase text-[#64748b] bg-[#f1f5f9] px-2 py-0.5 rounded">
+                    Q2 2025
+                  </span>
+                </div>
+
+                <p className="text-xs text-[#64748b] -mt-2">
+                  Cumulative civic restoration outcomes for Oakwood residents.
+                </p>
+
+                {/* Progress 1 */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-[#0f172a]">Street Hazards Cleared</span>
+                    <span className="font-bold text-[#005c55] text-sm">142</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-[#f1f5f9] overflow-hidden">
+                    <div className="h-full bg-[#005c55] rounded-full" style={{ width: '82%' }}></div>
+                  </div>
+                  <div className="flex justify-between text-[10px] text-[#94a3b8]">
+                    <span>Goal: 175 tickets</span>
+                    <span>82% Achieved</span>
+                  </div>
+                </div>
+
+                {/* Progress 2 */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-[#0f172a]">Recycled Municipal Bulk</span>
+                    <span className="font-bold text-[#006780] text-sm">88 Tons</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-[#f1f5f9] overflow-hidden">
+                    <div className="h-full bg-[#006780] rounded-full" style={{ width: '73%' }}></div>
+                  </div>
+                  <div className="flex justify-between text-[10px] text-[#94a3b8]">
+                    <span>Ward target: 120 Tons</span>
+                    <span>73% of quarterly cap</span>
+                  </div>
+                </div>
+
+                {/* Event Banner */}
+                <div className="p-3.5 rounded-xl bg-[#005c55] text-white flex items-center justify-between mt-2">
+                  <div>
+                    <p className="text-[10px] uppercase font-semibold text-[#a3faef] tracking-wider">
+                      Next Civic Clean-Up Day
+                    </p>
+                    <p className="text-xs font-bold mt-0.5">Saturday, June 14</p>
+                    <p className="text-[10px] text-white/80">Oakwood Central Park Pavilion</p>
+                  </div>
+                  <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-[20px]">calendar_month</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Emergency Banner */}
+              <div className="p-4 rounded-2xl bg-white border border-[#e2e8f0] shadow-sm flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#fee2e2] text-[#dc2626] flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-[18px]">emergency</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-[#0f172a]">
+                      Emergency Gas or Water Line Break?
+                    </p>
+                    <p className="text-[11px] text-[#64748b]">
+                      Do not file tickets. Contact central emergency dispatch.
+                    </p>
+                  </div>
+                </div>
+                <button className="px-3 py-1.5 rounded-lg bg-[#b91c1c] text-white font-bold text-xs hover:bg-[#991b1b] transition-colors shrink-0">
+                  Dial 911
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
