@@ -66,7 +66,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+import adminRoutes from './src/routes/adminRoutes.js';
+
 // Mount Modular API Routes
+app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/complaints', complaintRoutes);
 app.use('/api/categories', categoryRoutes);
