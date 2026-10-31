@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
+import Layout from '../components/Layout';
 
 export default function ComplaintTracking() {
   const [searchParams] = useSearchParams();
@@ -69,49 +70,35 @@ export default function ComplaintTracking() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30] flex flex-col font-sans antialiased">
-      {/* Header */}
-      <header className="h-16 bg-white border-b border-[#e2e8f0] px-8 flex items-center justify-between sticky top-0 z-20">
-        <Link to="/citizen/dashboard" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-[#005c55] text-white flex items-center justify-center font-bold">
-            <span className="material-symbols-outlined text-[18px]">apartment</span>
-          </div>
-          <span className="font-bold text-sm text-[#0f172a]">FixMyArea</span>
-        </Link>
-
+    <Layout title="Track & Rate Resolution" breadcrumb="Track by ID" portalType="citizen">
+      <div className="max-w-5xl mx-auto space-y-6">
         {/* Quick Ticket Search Bar */}
-        <form onSubmit={handleSearchSubmit} className="flex items-center gap-2">
-          <div className="relative w-64 md:w-80">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-[#94a3b8]">
-              search
-            </span>
-            <input
-              type="text"
-              value={ticketInput}
-              onChange={(e) => setTicketInput(e.target.value)}
-              placeholder="Search by Ticket ID (e.g. FMA-4829)"
-              className="w-full h-9 pl-9 pr-3 rounded-lg bg-[#f1f5f9] text-xs font-mono text-[#0f172a] focus:outline-none focus:ring-1 focus:ring-[#005c55]"
-            />
+        <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-xl font-bold text-[#0f172a]">Live Resolution Audit</h1>
+            <p className="text-xs text-[#64748b]">Search any municipal dispatch ticket by code.</p>
           </div>
-          <button
-            type="submit"
-            className="h-9 px-4 rounded-lg bg-[#005c55] text-white font-semibold text-xs hover:bg-[#004d47] transition-all cursor-pointer"
-          >
-            Track
-          </button>
-        </form>
-
-        <Link
-          to="/citizen/dashboard"
-          className="text-xs text-[#006780] font-semibold hover:underline flex items-center gap-1"
-        >
-          <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-          <span>Back to Dashboard</span>
-        </Link>
-      </header>
-
-      {/* Main Content */}
-      <main className="p-8 max-w-5xl w-full mx-auto space-y-6 flex-1">
+          <form onSubmit={handleSearchSubmit} className="flex items-center gap-2">
+            <div className="relative w-64 md:w-80">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-[#94a3b8]">
+                search
+              </span>
+              <input
+                type="text"
+                value={ticketInput}
+                onChange={(e) => setTicketInput(e.target.value)}
+                placeholder="Search by Ticket ID (e.g. FMA-4829)"
+                className="w-full h-9 pl-9 pr-3 rounded-lg bg-[#f1f5f9] text-xs font-mono text-[#0f172a] focus:outline-none focus:ring-1 focus:ring-[#005c55]"
+              />
+            </div>
+            <button
+              type="submit"
+              className="h-9 px-4 rounded-lg bg-[#005c55] text-white font-semibold text-xs hover:bg-[#004d47] transition-all cursor-pointer"
+            >
+              Track
+            </button>
+          </form>
+        </div>
         {loading ? (
           <div className="p-16 text-center text-xs text-[#64748b]">
             <span className="material-symbols-outlined text-[32px] text-[#005c55] animate-spin mb-2">
@@ -275,7 +262,7 @@ export default function ComplaintTracking() {
             </div>
           </div>
         ) : null}
-      </main>
-    </div>
+      </div>
+    </Layout>
   );
 }

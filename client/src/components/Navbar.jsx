@@ -1,14 +1,32 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from './Logo';
+
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
   const location = useLocation();
+  const { user } = useAuth();
+
+  const portalPath =
+    user?.role === 'admin'
+      ? '/admin/complaints'
+      : user?.role === 'staff'
+      ? '/staff/workbench'
+      : '/citizen/dashboard';
+
+  const portalLabel =
+    user?.role === 'admin'
+      ? 'Admin Console'
+      : user?.role === 'staff'
+      ? 'Staff Terminal'
+      : 'Citizen Portal';
 
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'Explore Complaints', path: '/explore' },
     { label: 'How It Works', path: '/how-it-works' },
-    { label: 'Civic Dashboard', path: '/citizen/dashboard' },
+    { label: portalLabel, path: portalPath },
   ];
 
   return (
@@ -17,9 +35,7 @@ export default function Navbar() {
         {/* Brand */}
         <div className="flex items-center gap-6 flex-shrink-0">
           <Link to="/" className="flex items-center gap-2 group focus:outline-none">
-            <div className="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="material-symbols-outlined text-[24px]">apartment</span>
-            </div>
+            <Logo className="w-10 h-10" />
             <div className="flex flex-col">
               <span className="text-lg font-bold text-on-surface tracking-tight leading-tight group-hover:text-primary transition-colors">
                 FixMyArea
@@ -64,12 +80,22 @@ export default function Navbar() {
             />
           </div>
 
-          <Link
-            to="/login"
-            className="h-10 px-4 inline-flex items-center justify-center rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors focus:outline-none"
-          >
-            Log In
-          </Link>
+          {user ? (
+            <Link
+              to={portalPath}
+              className="h-10 px-4 inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors focus:outline-none"
+            >
+              <span className="material-symbols-outlined text-[16px]">account_circle</span>
+              <span>{user.name ? user.name.split(' ')[0] : 'My Account'}</span>
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="h-10 px-4 inline-flex items-center justify-center rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors focus:outline-none"
+            >
+              Log In
+            </Link>
+          )}
 
           <Link
             to="/report"

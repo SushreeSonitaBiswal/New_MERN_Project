@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
+import Logo from '../components/Logo';
 
 export default function LandingPage() {
   const [stats, setStats] = useState({
@@ -49,9 +50,7 @@ export default function LandingPage() {
       <header className="h-20 bg-white/90 backdrop-blur-md border-b border-[#e2e8f0] px-8 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-[#005c55] text-white flex items-center justify-center shadow-md shadow-[#005c55]/20 group-hover:scale-105 transition-transform">
-              <span className="material-symbols-outlined text-[24px]">apartment</span>
-            </div>
+            <Logo className="w-10 h-10" />
             <div>
               <span className="text-xl font-bold tracking-tight text-[#0f172a]">FixMyArea</span>
               <p className="text-[10px] text-[#64748b] tracking-wider uppercase font-semibold">
@@ -325,9 +324,7 @@ export default function LandingPage() {
       <footer className="mt-auto bg-white border-t border-[#e2e8f0] py-10 px-8 text-xs text-[#64748b]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-[#005c55] text-white flex items-center justify-center font-bold text-[11px]">
-              F
-            </div>
+            <Logo className="w-6 h-6" />
             <span className="font-bold text-[#0f172a]">FixMyArea Municipal Operations</span>
             <span>• Open Civic Transparency</span>
           </div>

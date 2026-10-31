@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import Layout from '../components/Layout';
 
 export default function AdminComplaints() {
   const { user } = useAuth();
@@ -82,127 +83,25 @@ export default function AdminComplaints() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30] flex font-sans antialiased">
-      {/* 1. LEFT SIDEBAR */}
-      <aside className="w-[260px] min-h-screen bg-white border-r border-[#e2e8f0] flex flex-col justify-between shrink-0 sticky top-0 h-screen z-30">
-        <div className="flex flex-col">
-          <div className="p-5 pb-3 flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[#b91c1c] text-white flex items-center justify-center shadow-sm">
-              <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
-            </div>
-            <div>
-              <h1 className="font-bold text-sm tracking-tight text-[#0f172a]">FixMyArea</h1>
-              <p className="text-[10px] text-[#b91c1c] tracking-wider uppercase font-bold">
-                Admin Command
-              </p>
-            </div>
+    <Layout title="Complaint Management" breadcrumb="Incident Dispatch Queue" portalType="admin">
+      <div className="space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-[#0f172a] tracking-tight">
+              Municipal Complaint Management
+            </h1>
+            <p className="text-xs text-[#64748b] mt-0.5">
+              Audit citizen reports, assign heavy machinery crews, override SLAs, and verify resolution evidence.
+            </p>
           </div>
-
-          <div className="px-5 py-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#fef2f2] rounded-full text-xs font-semibold text-[#991b1b]">
-              <span className="w-2 h-2 rounded-full bg-[#ef4444] animate-pulse"></span>
-              <span>Central Dispatch • Admin</span>
-            </div>
-          </div>
-
-          <nav className="px-3 py-3 space-y-1">
-            <Link
-              to="/admin/complaints"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg bg-[#005c55] text-white font-medium text-xs shadow-sm transition-all"
-            >
-              <span className="material-symbols-outlined text-[18px]">assignment</span>
-              <span>Complaints Management</span>
-            </Link>
-
-            <Link
-              to="/admin/staff"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">group</span>
-              <span>Staff &amp; Workload</span>
-            </Link>
-
-            <Link
-              to="/admin/categories"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">category</span>
-              <span>Category Management</span>
-            </Link>
-
-            <Link
-              to="/admin/analytics"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">query_stats</span>
-              <span>Reports &amp; Analytics</span>
-            </Link>
-
-            <Link
-              to="/admin/settings"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">settings</span>
-              <span>System Settings</span>
-            </Link>
-          </nav>
-        </div>
-
-        {/* Sidebar Footer */}
-        <div className="p-4 space-y-2 border-t border-[#e2e8f0]">
-          <Link
-            to="/citizen/dashboard"
-            className="flex items-center gap-2 p-2 rounded-lg text-xs font-semibold text-[#006780] hover:bg-[#eff4ff]"
+          <button
+            onClick={fetchComplaints}
+            className="h-9 px-3.5 rounded-lg bg-white border border-[#cbd5e1] text-xs font-semibold text-[#334155] flex items-center gap-1.5 hover:bg-[#f8fafc] cursor-pointer self-start md:self-auto"
           >
-            <span className="material-symbols-outlined text-[18px]">visibility</span>
-            <span>Switch to Citizen Portal</span>
-          </Link>
-          <div className="p-2.5 rounded-xl bg-[#f8fafc] border border-[#e2e8f0] flex items-center justify-between text-xs">
-            <div>
-              <p className="font-bold text-[#0f172a]">{user?.name || 'Director Vance'}</p>
-              <p className="text-[10px] text-[#94a3b8]">Municipal Operations</p>
-            </div>
-            <span className="px-2 py-0.5 rounded bg-[#fee2e2] text-[#991b1b] font-bold text-[10px] uppercase">
-              Admin
-            </span>
-          </div>
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Refresh Queue</span>
+          </button>
         </div>
-      </aside>
-
-      {/* 2. MAIN ADMIN CONTENT */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-[#e2e8f0] px-8 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-2 text-xs text-[#64748b]">
-            <span className="font-semibold text-[#0f172a]">Admin Control</span>
-            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-            <span className="text-[#005c55] font-semibold">Incident Dispatch Queue</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full bg-[#f1f5f9] text-xs font-mono font-bold text-[#334155]">
-              API: /api/admin/complaints
-            </span>
-            <button
-              onClick={fetchComplaints}
-              className="h-9 px-3.5 rounded-lg bg-white border border-[#cbd5e1] text-xs font-semibold text-[#334155] flex items-center gap-1.5 hover:bg-[#f8fafc]"
-            >
-              <span className="material-symbols-outlined text-[16px]">refresh</span>
-              <span>Refresh</span>
-            </button>
-          </div>
-        </header>
-
-        <main className="p-8 max-w-[1400px] w-full mx-auto space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-[#0f172a] tracking-tight">
-                Municipal Complaint Management
-              </h1>
-              <p className="text-xs text-[#64748b] mt-0.5">
-                Audit citizen reports, assign heavy machinery crews, override SLAs, and verify resolution evidence.
-              </p>
-            </div>
-          </div>
 
           {/* Filter Bar */}
           <div className="bg-white p-4 rounded-2xl border border-[#e2e8f0] shadow-sm flex flex-wrap items-center justify-between gap-4">
@@ -347,8 +246,6 @@ export default function AdminComplaints() {
               </table>
             </div>
           </div>
-        </main>
-      </div>
 
       {/* DISPATCH MODAL */}
       {dispatchModal && (
@@ -430,6 +327,7 @@ export default function AdminComplaints() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </Layout>
   );
 }

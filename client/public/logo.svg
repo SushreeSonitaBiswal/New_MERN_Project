@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" className="w-full h-full">
+  <defs>
+    <linearGradient id="fma-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00695f" />
+      <stop offset="100%" stop-color="#004d40" />
+    </linearGradient>
+    <linearGradient id="fma-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <filter id="fma-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.18" flood-color="#003831"/>
+    </filter>
+  </defs>
+
+  <!-- Modern Rounded Squircle Container -->
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#fma-grad)" filter="url(#fma-shadow)" />
+
+  <!-- City Skyline / Community Geometry -->
+  <path d="M12 33V22C12 21.4477 12.4477 21 13 21H18C18.5523 21 19 21.4477 19 22V33H12Z" fill="#ffffff" fill-opacity="0.3" />
+  <path d="M19 33V17C19 16.4477 19.4477 16 20 16H28C28.5523 16 29 16.4477 29 17V33H19Z" fill="#ffffff" fill-opacity="0.5" />
+  <path d="M29 33V24C29 23.4477 29.4477 23 30 23H35C35.5523 23 36 23.4477 36 24V33H29Z" fill="#ffffff" fill-opacity="0.3" />
+
+  <!-- Base ground bar -->
+  <rect x="10" y="33" width="28" height="2.5" rx="1.25" fill="#ffffff" fill-opacity="0.75" />
+
+  <!-- Distinct Civic Pin / Location Beacon Beacon Overlay -->
+  <path d="M24 10C20.6863 10 18 12.6863 18 16C18 20.3 23.2 25.2 23.42 25.42C23.74 25.74 24.26 25.74 24.58 25.42C24.8 25.2 30 20.3 30 16C30 12.6863 27.3137 10 24 10Z" fill="url(#fma-accent)" />
+  <!-- Inner pin center core -->
+  <circle cx="24" cy="15.8" r="2.8" fill="#ffffff" />
+</svg>

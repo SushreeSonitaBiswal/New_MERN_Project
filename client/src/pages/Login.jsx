@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 
 export default function Login() {
   const [role, setRole] = useState('resident');
@@ -56,25 +57,14 @@ export default function Login() {
         <div className="lg:w-5/12 bg-surface-container-low p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-outline-variant/20">
           <div className="relative z-10">
             <Link to="/" className="flex items-center gap-3 mb-8 group">
-              <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-                <span className="material-symbols-outlined text-[24px]">shield_person</span>
-              </div>
+              <Logo className="w-11 h-11" />
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-on-surface tracking-tight">FixMyArea</span>
-                  <span className="px-2 py-0.5 rounded-full bg-primary-fixed-dim/40 text-on-primary-fixed-variant text-[10px] font-bold uppercase tracking-wider">
-                    v2.4
-                  </span>
-                </div>
+                <span className="text-xl font-bold text-on-surface tracking-tight">FixMyArea</span>
                 <p className="text-xs text-on-surface-variant">Civic Action & Dispatch Network</p>
               </div>
             </Link>
 
             <div className="space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary text-xs font-semibold">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                Live MongoDB Atlas Integration
-              </span>
               <h2 className="text-2xl font-bold text-on-surface leading-tight">
                 Empowering cleaner, safer neighborhoods.
               </h2>
@@ -112,13 +102,6 @@ export default function Login() {
                   <p className="text-[10px] text-on-surface-variant truncate">marcus@fixmyarea.gov</p>
                 </button>
               </div>
-            </div>
-
-            <div className="flex items-center justify-between text-on-surface-variant text-[11px] px-1 pt-1">
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">lock</span> Database Encrypted
-              </span>
-              <span className="font-mono text-[10px]">AUTH API: READY</span>
             </div>
           </div>
         </div>

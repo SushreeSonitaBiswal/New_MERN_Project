@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
+import Layout from '../components/Layout';
 
 export default function ReportComplaint() {
   const { user } = useAuth();
@@ -92,136 +94,9 @@ export default function ReportComplaint() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30] flex font-sans antialiased">
-      {/* 1. LEFT SIDEBAR */}
-      <aside className="w-[260px] min-h-screen bg-white border-r border-[#e2e8f0] flex flex-col justify-between shrink-0 sticky top-0 h-screen z-30">
-        <div className="flex flex-col">
-          <div className="p-5 pb-3 flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[#005c55] text-white flex items-center justify-center shadow-sm">
-              <span className="material-symbols-outlined text-[20px]">apartment</span>
-            </div>
-            <div>
-              <h1 className="font-bold text-sm tracking-tight text-[#0b1c30]">FixMyArea</h1>
-              <p className="text-[10px] text-[#64748b] tracking-wider uppercase font-semibold">
-                Municipal Portal
-              </p>
-            </div>
-          </div>
-
-          <div className="px-5 py-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#eff4ff] rounded-full text-xs font-medium text-[#1e293b]">
-              <span className="w-2 h-2 rounded-full bg-[#005c55] animate-pulse"></span>
-              <span>Civic Portal • Live</span>
-            </div>
-          </div>
-
-          <nav className="px-3 py-3 space-y-1">
-            <Link
-              to="/citizen/dashboard"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">dashboard</span>
-              <span>Dashboard</span>
-            </Link>
-
-            <Link
-              to="/report"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg bg-[#005c55] text-white font-medium text-xs shadow-sm transition-all"
-            >
-              <span className="material-symbols-outlined text-[18px]">add_alert</span>
-              <span>Report Issue</span>
-            </Link>
-
-            <Link
-              to="/citizen/my-complaints"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">assignment</span>
-              <span>My Complaints</span>
-            </Link>
-
-            <Link
-              to="/staff/workbench"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">engineering</span>
-              <span>Staff Workbench</span>
-            </Link>
-
-            <Link
-              to="/admin/complaints"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
-              <span>Admin Management</span>
-            </Link>
-
-            <Link
-              to="/admin/analytics"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">query_stats</span>
-              <span>Analytics</span>
-            </Link>
-
-            <Link
-              to="/admin/settings"
-              className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[#475569] hover:bg-[#eff4ff] hover:text-[#0b1c30] font-medium text-xs transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">settings</span>
-              <span>Settings</span>
-            </Link>
-          </nav>
-        </div>
-
-        <div className="p-4 space-y-3">
-          <div className="p-3 rounded-xl bg-[#eff4ff] border border-[#dbeafe] flex items-center gap-3">
-            <span className="material-symbols-outlined text-[#006780] text-[22px]">support_agent</span>
-            <div>
-              <p className="text-xs font-semibold text-[#0f172a]">Municipal Helpline</p>
-              <p className="text-[11px] text-[#64748b]">Dial 311 (24/7 Support)</p>
-            </div>
-          </div>
-
-          <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
-                alt="Profile"
-                className="w-8 h-8 rounded-full object-cover ring-2 ring-[#005c55]/20"
-              />
-              <div>
-                <p className="text-xs font-bold text-[#0f172a] leading-tight">{user?.name || 'Sarah Jenkins'}</p>
-                <p className="text-[10px] text-[#64748b]">Verified Citizen</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      {/* 2. MAIN REPORT FORM CONTENT */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-[#e2e8f0] px-8 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-2 text-xs text-[#64748b]">
-            <Link to="/citizen/dashboard" className="font-semibold text-[#0f172a] hover:underline">
-              FixMyArea
-            </Link>
-            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-            <span className="text-[#005c55] font-semibold">Report a Problem</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              to="/citizen/dashboard"
-              className="h-9 px-4 rounded-lg border border-[#cbd5e1] text-[#334155] font-semibold text-xs flex items-center gap-1.5 hover:bg-[#f8fafc]"
-            >
-              Cancel
-            </Link>
-          </div>
-        </header>
-
-        <main className="p-8 max-w-4xl w-full mx-auto space-y-6">
-          {/* Header Banner */}
+    <Layout title="Report a Problem" breadcrumb="Report a Problem" portalType="citizen">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Header Banner */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#eff4ff] text-[#006780] rounded-full text-xs font-mono font-semibold mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#006780]"></span>
@@ -629,8 +504,7 @@ export default function ReportComplaint() {
               )}
             </form>
           )}
-        </main>
-      </div>
-    </div>
+        </div>
+    </Layout>
   );
 }

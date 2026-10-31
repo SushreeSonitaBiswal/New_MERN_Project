@@ -1,62 +1,77 @@
-# MERN Stack Project (React + Tailwind CSS + Express + MongoDB)
+# FixMyArea — Municipal Civic Action & Dispatch Platform
 
-A fullstack MERN boilerplate initialized with React 19, Tailwind CSS v4, Express 5, and Mongoose.
+A modern civic infrastructure management system built with **MongoDB Atlas**, **Express 5**, **React 19**, and **Tailwind CSS**.
 
----
-
-## 📁 Project Structure
-
-```
-├── client/                 # React Frontend (Vite + Tailwind CSS v4)
-│   ├── src/
-│   │   ├── App.jsx         # Starter dashboard connected to backend
-│   │   ├── index.css       # Tailwind CSS v4 setup
-│   │   └── main.jsx
-│   ├── vite.config.js      # Proxy setup to /api on port 5000
-│   └── package.json
-│
-├── server/                 # Express & MongoDB Backend
-│   ├── src/
-│   │   ├── config/db.js    # Mongoose connection
-│   │   ├── models/         # Mongoose schemas (e.g., Item model)
-│   │   └── routes/         # Express REST routes (/api/items, /api/health)
-│   ├── server.js           # Server entry point
-│   ├── .env.example        # Environment variable template
-│   └── package.json
-│
-├── package.json            # Root scripts to run both client & server concurrently
-└── README.md
-```
+The platform provides **3 separate, role-segregated working websites/portals** enforced by client-side RBAC and backend token protection.
 
 ---
 
-## 🚀 Getting Started
+## 🏛️ The 3 Working Modules
 
-### 1. MongoDB Connection Setup
-Create or update `server/.env`:
+```
+                             FixMyArea Architecture
+                                       │
+           ┌───────────────────────────┼───────────────────────────┐
+           ▼                           ▼                           ▼
+   [ Citizen Portal ]         [ Staff Terminal ]          [ Admin Console ]
+   • Role: resident/citizen   • Role: staff               • Role: admin
+   • Theme: Emerald Teal      • Theme: Electric Blue      • Theme: Deep Purple
+   • Purpose: Incident Filing • Purpose: Field Work &     • Purpose: Central Triage,
+     & Live Tracking            Proof Verification          Telemetry & Governance
+```
+
+### 1. Citizen Services Portal (Resident Facing)
+- **Dashboard (`/citizen/dashboard`)**: Personal hub with statistics on reported issues, community impact progress, and active ticket updates.
+- **Report Incident (`/report`)**: 4-step wizard for categorization, description, address, geocoded map coordinates, and photos.
+- **My Complaints (`/citizen/my-complaints`)**: Detailed list of filed complaints with live status filters (`submitted`, `in-progress`, `resolved`).
+- **Track & Rate (`/track`)**: Public audit lookup by Ticket ID (e.g., `FMA-8492`) with a 5-star citizen satisfaction rating system.
+
+### 2. Staff Field Operations Terminal (Field Crews & Leads)
+- **Staff Workbench (`/staff/workbench`)**: High-precision field console with geocoded telemetry, turn-by-turn routing, citizen photo validation, tamper-evident before/after repair proof, and labor logs.
+- **Completed Work History (`/staff/history`)**: Audit-locked history of verified tasks with daily operational custody certification and density compliance.
+- **Dispatch Alerts (`/notifications`)**: Sector alerts, weather updates, and emergency crew calls.
+
+### 3. Municipal Admin Command & Control (Directors & Supervisors)
+- **Complaint Queue (`/admin/complaints`)**: Central triage queue with filtering by priority/status and instant crew dispatch modal.
+- **Staff & Workload (`/admin/staff`)**: Real-time crew availability, GPS fleet tracking, and automated workload balancing.
+- **Category Management (`/admin/categories`)**: SLA response thresholds, department routing, and AI classifier confidence configuration.
+- **Reports & Analytics (`/admin/analytics`)**: Ward resolution turnaround, SLA compliance charts, bottleneck detection, and executive PDF briefing export.
+- **System Settings (`/admin/settings`)**: Open311 integrations, automated routing triggers, and notification gateway settings.
+
+---
+
+## 🔐 Demo Credentials Matrix
+
+Auto-fill credentials are also provided directly on the [Login Page](http://localhost:5173/login):
+
+| Portal | Role | Email | Password |
+| :--- | :--- | :--- | :--- |
+| **Citizen Portal** | `resident` | `sarah.j@example.com` | `Password123!` |
+| **Staff Terminal** | `staff` | `marcus@fixmyarea.gov` | `Password123!` |
+| **Admin Console** | `admin` | `admin@fixmyarea.gov` | `Password123!` |
+
+---
+
+## 🚀 Running the Project
+
+### 1. Environment Configuration
+Verify `server/.env` is configured with your MongoDB Atlas cluster:
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_connection_string_here
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.12oqcrm.mongodb.net/sush-mern?retryWrites=true&w=majority
+JWT_SECRET=fixmyarea_super_secret_jwt_key_2026
 CLIENT_URL=http://localhost:5173
 ```
 
-### 2. Install Dependencies
-To install all dependencies for both frontend and backend:
-```bash
-npm run install:all
-```
-
-### 3. Run Development Server
-Run frontend and backend simultaneously with one command:
+### 2. Run Servers Concurrently
+From the root directory:
 ```bash
 npm run dev
 ```
 
-Or run them individually:
-- **Backend Only**: `npm run server` (runs on `http://localhost:5000`)
-- **Frontend Only**: `npm run client` (runs on `http://localhost:5173`)
-
----
+- **Client**: `http://localhost:5173`
+- **Backend API**: `http://localhost:5000`
+- **Build Verification**: `npm run build` in `client`
 
 ## 📡 API Endpoints
 

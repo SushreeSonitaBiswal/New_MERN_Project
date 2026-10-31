@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from './Logo';
 
 export default function Sidebar({ role = 'citizen' }) {
   const location = useLocation();
@@ -28,17 +29,15 @@ export default function Sidebar({ role = 'citizen' }) {
     <aside className="fixed left-0 top-0 h-full w-[250px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-r border-outline-variant/30">
       <div className="flex flex-col flex-1 overflow-y-auto">
         {/* Brand */}
-        <div className="p-4 flex items-center gap-2 border-b border-outline-variant/20">
-          <div className="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-lg">
-            <span className="material-symbols-outlined text-[20px]">apartment</span>
-          </div>
+        <Link to="/" className="p-4 flex items-center gap-2 border-b border-outline-variant/20 group">
+          <Logo className="w-9 h-9" />
           <div className="flex flex-col">
             <span className="font-bold text-sm text-on-surface">FixMyArea</span>
             <span className="text-[10px] text-on-surface-variant tracking-wider uppercase font-medium">
               Civic Operations
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Status Chip */}
         <div className="px-4 py-3">

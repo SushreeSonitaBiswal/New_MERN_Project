@@ -116,30 +116,114 @@ function StitchNavigationOverlay() {
 }
 
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <StitchNavigationOverlay />
         <Routes>
+          {/* Public Website Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/explore" element={<ExploreComplaints />} />
-          <Route path="/report" element={<ReportComplaint />} />
           <Route path="/track" element={<ComplaintTracking />} />
-          <Route path="/citizen/dashboard" element={<CitizenDashboard />} />
-          <Route path="/citizen/my-complaints" element={<MyComplaints />} />
-          <Route path="/notifications" element={<NotificationCenter />} />
-          <Route path="/staff/workbench" element={<StaffWorkbench />} />
-          <Route path="/staff/history" element={<CompletedWorkHistory />} />
-          <Route path="/admin/complaints" element={<AdminComplaints />} />
-          <Route path="/admin/staff" element={<StaffWorkload />} />
-          <Route path="/admin/categories" element={<CategoryManagement />} />
-          <Route path="/admin/analytics" element={<ReportsAnalytics />} />
-          <Route path="/admin/settings" element={<SystemSettings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* 1. CITIZEN WEBSITE / PORTAL (Role: resident, citizen) */}
+          <Route
+            path="/citizen/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={['resident', 'citizen']}>
+                <CitizenDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report"
+            element={
+              <ProtectedRoute allowedRoles={['resident', 'citizen']}>
+                <ReportComplaint />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/citizen/my-complaints"
+            element={
+              <ProtectedRoute allowedRoles={['resident', 'citizen']}>
+                <MyComplaints />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectedRoute allowedRoles={['resident', 'citizen', 'staff', 'admin']}>
+                <NotificationCenter />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 2. STAFF WEBSITE / PORTAL (Role: staff) */}
+          <Route
+            path="/staff/workbench"
+            element={
+              <ProtectedRoute allowedRoles={['staff']}>
+                <StaffWorkbench />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/staff/history"
+            element={
+              <ProtectedRoute allowedRoles={['staff']}>
+                <CompletedWorkHistory />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 3. ADMIN WEBSITE / PORTAL (Role: admin) */}
+          <Route
+            path="/admin/complaints"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminComplaints />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/staff"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <StaffWorkload />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/categories"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <CategoryManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/analytics"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <ReportsAnalytics />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <SystemSettings />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

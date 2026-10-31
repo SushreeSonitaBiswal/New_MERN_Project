@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -34,12 +35,10 @@ export default function Register() {
       <div className="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden p-8 border border-outline-variant/30 relative z-10">
         <div className="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-6">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center font-bold">
-              <span className="material-symbols-outlined text-[20px]">apartment</span>
-            </div>
+            <Logo className="w-9 h-9" />
             <span className="text-lg font-bold text-on-surface">FixMyArea</span>
           </Link>
-          <span className="text-xs text-on-surface-variant">Citizen Onboarding</span>
+          <span className="text-xs text-on-surface-variant font-medium">Citizen Registration</span>
         </div>
 
         <div className="mb-6">
@@ -137,7 +136,7 @@ export default function Register() {
             disabled={loading}
             className="w-full h-11 mt-4 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-primary/20 cursor-pointer disabled:opacity-60"
           >
-            <span>{loading ? 'Registering with MongoDB...' : 'Complete Registration'}</span>
+            <span>{loading ? 'Creating Account...' : 'Complete Registration'}</span>
             <span className="material-symbols-outlined text-[18px]">check_circle</span>
           </button>
         </form>

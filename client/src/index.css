@@ -1,1 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import "tailwindcss";
+
+/* Material Symbols Outlined Icon Styling */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Fallback definitions for Stitch design tokens */
+:root {
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+
+.p-space-xs { padding: 4px !important; }
+.p-space-sm { padding: 8px !important; }
+.p-space-md { padding: 16px !important; }
+.p-space-lg { padding: 24px !important; }
+.p-space-xl { padding: 32px !important; }
+
+.px-space-xs { padding-left: 4px !important; padding-right: 4px !important; }
+.px-space-sm { padding-left: 8px !important; padding-right: 8px !important; }
+.px-space-md { padding-left: 16px !important; padding-right: 16px !important; }
+.px-space-lg { padding-left: 24px !important; padding-right: 24px !important; }
+.px-space-xl { padding-left: 32px !important; padding-right: 32px !important; }
+
+.py-space-xs { padding-top: 4px !important; padding-bottom: 4px !important; }
+.py-space-sm { padding-top: 8px !important; padding-bottom: 8px !important; }
+.py-space-md { padding-top: 16px !important; padding-bottom: 16px !important; }
+.py-space-lg { padding-top: 24px !important; padding-bottom: 24px !important; }
+
+.pt-space-xs { padding-top: 4px !important; }
+.pt-space-sm { padding-top: 8px !important; }
+.pt-space-md { padding-top: 16px !important; }
+.pt-space-lg { padding-top: 24px !important; }
+
+.pb-space-xs { padding-bottom: 4px !important; }
+.pb-space-sm { padding-bottom: 8px !important; }
+.pb-space-md { padding-bottom: 16px !important; }
+.pb-space-lg { padding-bottom: 24px !important; }
+
+.gap-space-xs { gap: 4px !important; }
+.gap-space-sm { gap: 8px !important; }
+.gap-space-md { gap: 16px !important; }
+.gap-space-lg { gap: 24px !important; }
+.gap-space-xl { gap: 32px !important; }
+
+.mb-space-xs { margin-bottom: 4px !important; }
+.mb-space-sm { margin-bottom: 8px !important; }
+.mb-space-md { margin-bottom: 16px !important; }
+.mb-space-lg { margin-bottom: 24px !important; }
+.mb-space-xl { margin-bottom: 32px !important; }
+
+.mt-space-xs { margin-top: 4px !important; }
+.mt-space-sm { margin-top: 8px !important; }
+.mt-space-md { margin-top: 16px !important; }
+.mt-space-lg { margin-top: 24px !important; }
+.mt-space-xl { margin-top: 32px !important; }
+
+/* Stitch Typography utility classes */
+.font-headline-lg, .text-headline-lg { font-size: 1.75rem !important; line-height: 2.25rem !important; font-weight: 700 !important; }
+.font-headline-md, .text-headline-md { font-size: 1.35rem !important; line-height: 1.85rem !important; font-weight: 700 !important; }
+.font-headline-sm, .text-headline-sm { font-size: 1.05rem !important; line-height: 1.5rem !important; font-weight: 600 !important; }
+.font-body-md, .text-body-md { font-size: 0.875rem !important; line-height: 1.4rem !important; }
+.font-body-sm, .text-body-sm { font-size: 0.8rem !important; line-height: 1.25rem !important; }
+.font-label-lg, .text-label-lg { font-size: 0.875rem !important; font-weight: 600 !important; }
+.font-label-md, .text-label-md { font-size: 0.775rem !important; font-weight: 600 !important; }
+.font-label-sm, .text-label-sm { font-size: 0.725rem !important; font-weight: 600 !important; }
+.font-mono-data, .text-mono-data { font-family: monospace !important; font-size: 0.775rem !important; }
+
+/* Colors fallback */
+.bg-surface-container-lowest { background-color: #ffffff !important; }
+.bg-surface-container-low { background-color: #f8fafc !important; }
+.bg-surface-container { background-color: #f1f5f9 !important; }
+.bg-surface-container-high { background-color: #e2e8f0 !important; }
+.bg-surface-container-highest { background-color: #cbd5e1 !important; }
+
+.bg-primary { background-color: #005c55 !important; }
+.bg-primary-container { background-color: #0f766e !important; }
+.text-primary { color: #005c55 !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-surface { color: #0f172a !important; }
+.text-on-surface-variant { color: #64748b !important; }
+.bg-error-container { background-color: #fee2e2 !important; }
+.text-error { color: #ef4444 !important; }
+.text-on-error-container { color: #991b1b !important; }

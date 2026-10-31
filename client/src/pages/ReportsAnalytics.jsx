@@ -1,18 +1,14 @@
 import React from 'react';
+import Layout from '../components/Layout';
 
 export default function ReportsAnalytics() {
   return (
-    <div className="w-full min-h-screen">
-      <aside className="fixed left-0 top-0 h-full w-[250px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div className="flex flex-col flex-1 overflow-y-auto"><div className="p-space-md flex items-center gap-space-sm"><img alt="FixMyArea Brand Logo" className="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UFgGY8YFJ_uSwMb-1C2HU22kFZeAM_us6EfAz1AkcobGX2c3hO7A9abO8q-2fUVCGSnQMlFgCnByOnW73UCwhkwPQFiPlDoCXK7_jT_FfOSE3R4xg6XvfiQmFTXgGaRxepr6XLVClA0xid1pDbNBiJ3TT9FiRpp2xrTLTGNBKVusmHnfiKoqjl7lupXWVZu7x-KPOqlCVcHESfpAH3sr7-VT_Ih5hjV37GaHkOAJc9bq1aUMuSui-e"/><div className="flex flex-col"><span className="font-headline-sm text-headline-sm text-on-surface">FixMyArea</span><span className="font-label-sm text-label-sm text-on-surface-variant">MUNICIPAL PORTAL</span></div></div><div className="px-space-md pb-space-sm"><div className="inline-flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-high rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-primary"></span><span className="font-label-sm text-label-sm text-on-surface">Civic Portal • Live</span></div></div><nav className="flex flex-col gap-1 px-space-sm pt-space-xs" ><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">add_alert</span><span>Report Issue</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">assignment</span><span>My Complaints</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">engineering</span><span>Staff Workbench</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">admin_panel_settings</span><span>Admin Management</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">query_stats</span><span>Analytics</span></a><a className="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg"  href="#"><span className="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div><div className="p-space-sm flex flex-col gap-space-sm"><div className="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs"><span className="material-symbols-outlined text-primary text-[20px] mt-0.5">support_agent</span><div><p className="font-label-md text-label-md text-on-surface">Municipal Helpline</p><p className="font-body-sm text-body-sm text-on-surface-variant">Dial 311 (24/7 Support)</p></div></div><div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors"><div className="flex items-center gap-space-xs"><img alt="Profile" className="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><div className="flex flex-col text-left"><span className="font-label-md text-label-md text-on-surface">Marcus Vance</span><span className="font-label-sm text-label-sm text-on-surface-variant">Field Dispatcher</span></div></div><button className="text-on-surface-variant hover:text-on-surface" type="button"><span className="material-symbols-outlined text-[18px]">expand_more</span></button></div></div></aside><div className="pl-[250px]"><header className="fixed top-0 left-[250px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div className="flex items-center gap-space-md"><div className="flex items-center gap-space-xs text-on-surface-variant"><span className="material-symbols-outlined text-[18px]">location_city</span><span className="font-label-md text-label-md">FixMyArea</span><span className="material-symbols-outlined text-[14px]">chevron_right</span><div className="inline-flex items-center gap-1 bg-surface-container-low px-space-sm py-1 rounded-full text-on-surface"><span className="material-symbols-outlined text-primary text-[16px]">pin_drop</span><span className="font-label-md text-label-md">Oakwood District 4</span><span className="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_drop_down</span></div></div><div className="relative w-80 lg:w-96"><span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span><input className="w-full h-9 pl-9 pr-4 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search complaints by ID, street, or category..." type="text"/></div></div><div className="flex items-center gap-space-md"><button className="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span className="material-symbols-outlined text-[22px]">notifications</span><span className="absolute top-1.5 right-1.5 w-4 h-4 bg-error text-on-error rounded-full font-label-sm text-[10px] flex items-center justify-center font-bold">3</span></button><a className="inline-flex items-center gap-space-xs px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-95 transition-all"  href="#"><span className="material-symbols-outlined text-[18px]">add</span><span>Report Problem</span></a><div className="flex items-center gap-space-xs pl-space-xs cursor-pointer"><img alt="Profile" className="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGa7KnneAmgBhAqMbqIy2I4VHeL9M975I-81ZM2iNC2kbBhU4GyPJykbhmeR3GAh2Ynhi6BpGOAy2kXPA6uOZu3_UK2232YOnpP0pOUhXfJtLsYsSgOI2eCz3AMrvE9bax2Tvk_eo-k4x5TqqD1FyWZb2oZCWWED82vVRo44yt2FD1IiAg_1YYE-0d9bSHVhsuBp3iUpBxVuKFGmDAVa1nRtfasLgyR0JGCvJmmZK_sfifpUe4Uo"/><span className="material-symbols-outlined text-[18px] text-on-surface-variant">keyboard_arrow_down</span></div></div></header><main className="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg"><div className="flex flex-col w-full gap-space-xl">
+    <Layout title="Reports & Analytics" breadcrumb="Municipal Telemetry & Indices" portalType="admin">
+      <div className="flex flex-col w-full gap-8">
+
 
 <section className="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg">
 <div className="flex flex-col gap-space-xs max-w-2xl">
-<div className="inline-flex items-center gap-space-xs text-primary font-label-sm text-label-sm uppercase tracking-wider">
-<span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-<span>Open311 Municipal Telemetry Feed</span>
-<span className="text-outline-variant">•</span>
-<span className="font-mono-data text-mono-data text-on-surface-variant">NODE: HQ-METRO-04</span>
-</div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">
         Municipal Reports &amp; Civic Analytics
       </h1>
@@ -606,34 +602,25 @@ export default function ReportsAnalytics() {
 </div>
 </section>
 
-<section className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
-<div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary text-[20px]">shield</span>
-<h2 className="font-headline-md text-headline-md text-on-surface">Open311 Municipal Trust Seal</h2>
+<section className="bg-white rounded-xl p-6 border border-slate-200 shadow-2xs flex flex-col gap-3">
+<div className="flex items-center gap-2">
+<span className="material-symbols-outlined text-[#005c55] text-[20px]">verified</span>
+<h2 className="text-sm font-bold text-slate-900">Public Transparency &amp; Audit</h2>
 </div>
-<p className="font-body-sm text-body-sm text-on-surface-variant">
-          Cryptographically hashed civic report logs published hourly to Open Data Portals to ensure municipal transparency and state auditor compliance.
-        </p>
+<p className="text-xs text-slate-500">
+All resolved civic issues and response turnaround reports are compiled for public record and state compliance.
+</p>
 
-<div className="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-xs">
-<div className="flex items-center justify-between">
-<span className="font-label-sm text-label-sm text-on-surface-variant uppercase">Current Block Proof</span>
-<span className="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm">
-<span className="w-1.5 h-1.5 rounded-full bg-primary"></span> Verified Sync
-            </span>
-</div>
-<span className="font-mono-data text-[11px] text-on-surface break-all bg-surface-container-lowest p-2 rounded">
-            SHA256: 8f4b7a1e09bc45d2994f31c26b801a287e0fa83c3e210dc01b7a66f
-          </span>
-<div className="flex justify-between items-center text-[11px] font-mono-data text-on-surface-variant pt-1">
-<span>Timestamp: 2024-10-31 16:42:10 UTC</span>
-<span>Ledger Block #104,912</span>
-</div>
+<div className="p-3 bg-slate-50 rounded-lg flex items-center justify-between text-xs">
+<span className="text-slate-600 font-medium">Last Monthly Audit Report</span>
+<span className="text-emerald-600 font-semibold flex items-center gap-1">
+<span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verified &amp; Archived
+</span>
 </div>
 
-<button className="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 bg-on-surface text-surface rounded-lg font-label-md text-label-md hover:bg-inverse-surface transition-all" type="button">
-<span className="material-symbols-outlined text-[18px]">policy</span>
-<span>Generate City Council Briefing Package</span>
+<button className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#005c55] hover:bg-[#004d47] text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer" type="button" onClick={() => alert('Downloading official municipal audit report...')}>
+<span className="material-symbols-outlined text-[16px]">download</span>
+<span>Download Official Audit Report</span>
 </button>
 </section>
 
@@ -652,12 +639,12 @@ export default function ReportsAnalytics() {
 <span>Preview Email</span>
 <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
 </button>
+      </div>
+    </section>
+  </div>
 </div>
-</section>
 </div>
-</div>
-</div>
-</main></div>
-    </div>
+    </Layout>
   );
 }
+
